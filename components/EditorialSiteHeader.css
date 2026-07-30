@@ -1,0 +1,312 @@
+/* Header integrado — identificador recortado + menú sobre naranja de marca (patrón Civis). */
+.editorial-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  width: 100%;
+  --editorial-header-brand: #ed7e2a;
+  /* Misma escala de altura que Civis. */
+  --editorial-mark-height: clamp(
+    2.5rem,
+    calc((100vw - 3.25rem) / var(--editorial-mark-aspect, 5.845)),
+    min(3.75rem, calc((100vw - 3.25rem) / var(--editorial-mark-aspect, 5.845)))
+  );
+  /* Margen transparente izquierdo del PNG (curva NA sobre blanco) */
+  --editorial-header-white-max: calc(
+    var(--editorial-mark-aspect, 5.845) * var(--editorial-mark-height) * 0.115
+  );
+  background: var(--editorial-header-brand);
+}
+
+.editorial-site-header__row {
+  display: flex;
+  align-items: stretch;
+  min-height: var(--editorial-mark-height);
+  padding: 0;
+  gap: 0;
+  background: var(--editorial-header-brand);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Blanco solo en el margen izquierdo transparente — la curva del PNG sigue blanca */
+.editorial-site-header__row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--editorial-header-white-max);
+  background: #fff;
+  z-index: 0;
+  clip-path: polygon(0 0, 63.5% 0, 100% 100%, 0 100%);
+}
+
+.editorial-site-header__brand {
+  display: block;
+  flex-shrink: 0;
+  line-height: 0;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  z-index: 1;
+  /* visible: la S de LOGOS no debe recortarse por el nav */
+  overflow: visible;
+  height: var(--editorial-mark-height);
+  width: calc(var(--editorial-mark-aspect, 5.845) * var(--editorial-mark-height));
+  max-width: calc(100% - 3.25rem);
+}
+
+.editorial-site-header__brand :is(span, img) {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.editorial-site-header__mark,
+.editorial-brand-mark {
+  display: block;
+  flex-shrink: 0;
+  vertical-align: top;
+}
+
+.editorial-brand-mark--lg {
+  display: block;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.editorial-site-header__menu-btn {
+  margin-left: auto;
+  align-self: center;
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.editorial-site-header__menu-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.editorial-site-header__nav {
+  display: none;
+  min-width: 0;
+  flex: 1;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 0.125rem;
+  padding: 0 0.75rem 0 0.5rem;
+  margin: 0;
+  /* Sin margin negativo: tapaba la S de «LOGOS» */
+  position: relative;
+  z-index: 2;
+  background: var(--editorial-header-brand);
+}
+
+.editorial-site-header__nav-actions {
+  display: inline-flex;
+  align-items: center;
+  align-self: center;
+  gap: 0.25rem;
+  margin-left: 0.35rem;
+  flex-shrink: 0;
+}
+
+.editorial-site-header__link {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 3px solid transparent;
+  padding: 0 0.85rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.editorial-site-header__link:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.editorial-site-header__link--active {
+  color: #fff;
+  font-weight: 800;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.editorial-site-header__cart-btn,
+.editorial-site-header__icon-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.editorial-site-header__cart-btn:hover,
+.editorial-site-header__icon-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.editorial-site-header__cart-badge {
+  position: absolute;
+  right: 0.1rem;
+  top: 0.05rem;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: #fff;
+  color: #cd4b0c;
+  font-size: 0.625rem;
+  font-weight: 800;
+  line-height: 1.1rem;
+  text-align: center;
+  padding: 0 0.2rem;
+}
+
+.editorial-site-header__mobile-nav {
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  background: var(--editorial-header-brand);
+  padding: 0.75rem 1rem 1rem;
+}
+
+.editorial-site-header__mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.editorial-site-header__mobile-link {
+  display: block;
+  border-radius: 0.75rem;
+  padding: 0.75rem 0.875rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.editorial-site-header__mobile-link:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.editorial-site-header__mobile-link--active {
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 -3px 0 #fff;
+}
+
+.editorial-site-header__mobile-nav .editorial-site-header__cart-btn,
+.editorial-site-header__mobile-nav .editorial-site-header__session-btn {
+  width: 100%;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.editorial-site-header__mobile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem 0.25rem 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .editorial-site-header {
+    --editorial-mark-height: 4.25rem;
+  }
+
+  .editorial-site-header__row,
+  .editorial-site-header__brand {
+    min-height: var(--editorial-mark-height);
+    height: var(--editorial-mark-height);
+  }
+
+  .editorial-site-header__nav {
+    margin-left: 0;
+    padding-left: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editorial-site-header {
+    --editorial-mark-height: 4.75rem;
+  }
+
+  .editorial-site-header__row,
+  .editorial-site-header__brand {
+    min-height: var(--editorial-mark-height);
+    height: var(--editorial-mark-height);
+  }
+
+  .editorial-site-header__nav {
+    margin-left: 0;
+    padding-left: 1rem;
+  }
+
+  .editorial-site-header__link {
+    padding: 0 1rem;
+    font-size: 0.9375rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .editorial-site-header {
+    --editorial-mark-height: 5.25rem;
+  }
+
+  .editorial-site-header__row,
+  .editorial-site-header__brand {
+    min-height: var(--editorial-mark-height);
+    height: var(--editorial-mark-height);
+  }
+
+  .editorial-site-header__nav {
+    margin-left: 0;
+    padding-left: 1.25rem;
+    display: flex;
+    gap: 0.25rem;
+    padding-right: 1rem;
+  }
+
+  .editorial-site-header__menu-btn {
+    display: none;
+  }
+
+  .editorial-site-header__mobile-nav {
+    display: none;
+  }
+}

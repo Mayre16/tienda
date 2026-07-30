@@ -1,0 +1,34 @@
+# Dependencies
+node_modules/
+
+# Next.js build
+.next/
+out/
+deploy/
+
+# Environment files
+.env.local
+.env.*.local
+
+# Build cache
+tsconfig.tsbuildinfo
+
+# Editor/IDE
+.vscode/
+.idea/
+
+# Design files
+*.studio3
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Upload folders
+upload-cpanel-*/
+
+# Local logo fix tooling
+scripts/_fonts/
+scripts/_fix-s*.png
+scripts/_preview-*.png
+scripts/_logo-fetch/
