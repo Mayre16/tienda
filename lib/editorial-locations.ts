@@ -106,12 +106,48 @@ export const EDITORIAL_DONDE_CONTACT: EditorialDondeContact = {
     "Hola, me interesa visitar la Librería Editorial Logos en {sede}.",
 };
 
+function isGoogleMapsUrl(input: string): boolean {
+  const s = input.trim();
+  if (!/^https?:\/\//i.test(s)) return false;
+  return (
+    /(?:^|\.)google\.[^/]+\/maps/i.test(s) ||
+    /maps\.google\./i.test(s) ||
+    /maps\.app\.goo\.gl/i.test(s) ||
+    /goo\.gl\/maps/i.test(s)
+  );
+}
+
+function parseLatLon(input: string): { lat: number; lon: number } | null {
+  const s = input.trim();
+  let m = s.match(/@(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+  if (m) return { lat: Number(m[1]), lon: Number(m[2]) };
+  m = s.match(/!3d(-?\d+(?:\.\d+)?)!4d(-?\d+(?:\.\d+)?)/);
+  if (m) return { lat: Number(m[1]), lon: Number(m[2]) };
+  m = s.match(/[?&](?:q|query|ll|center)=(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/);
+  if (m) return { lat: Number(m[1]), lon: Number(m[2]) };
+  return null;
+}
+
+/** Abre el enlace pegado tal cual, o busca por texto. */
 export function editorialMapsUrl(query: string): string {
-  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
+  const t = query.trim();
+  if (!t) return "https://www.google.com/maps";
+  if (isGoogleMapsUrl(t) || /^https?:\/\//i.test(t)) return t;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t)}`;
 }
 
 export function editorialMapsEmbedUrl(query: string): string {
-  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&hl=es&z=16&output=embed`;
+  const t = query.trim();
+  const gps = parseLatLon(t);
+  if (gps) {
+    return `https://maps.google.com/maps?q=${gps.lat},${gps.lon}&hl=es&z=16&output=embed`;
+  }
+  const place = t.match(/\/maps\/place\/([^/@]+)/);
+  if (place) {
+    const name = decodeURIComponent(place[1].replace(/\+/g, " "));
+    return `https://maps.google.com/maps?q=${encodeURIComponent(name)}&hl=es&z=16&output=embed`;
+  }
+  return `https://maps.google.com/maps?q=${encodeURIComponent(t)}&hl=es&z=16&output=embed`;
 }
 
 export function mergeEditorialDondeContactFields(

@@ -1110,7 +1110,30 @@ function EditorialEditPanel({
         <EditField label="Espacio / sala" value={sede.sala ?? ""} onChange={(v) => edit.patchDondeSede(id, { sala: v })} />
         <EditField label="Dirección" value={sede.address ?? ""} onChange={(v) => edit.patchDondeSede(id, { address: v })} multiline />
         <EditField label="Referencia" value={sede.reference ?? ""} onChange={(v) => edit.patchDondeSede(id, { reference: v })} multiline />
-        <EditField label="Consulta de mapa (Google Maps)" value={sede.mapsQuery ?? ""} onChange={(v) => edit.patchDondeSede(id, { mapsQuery: v })} />
+        <EditField
+          label="Enlace o búsqueda de Google Maps"
+          value={sede.mapsQuery ?? ""}
+          onChange={(v) => edit.patchDondeSede(id, { mapsQuery: v })}
+          multiline
+        />
+        <p className="-mt-2 text-xs text-slate-500">
+          Puede pegar el enlace completo de Google Maps; el botón del sitio lo
+          abrirá tal cual. También acepta texto de búsqueda.
+        </p>
+        {sede.mapsQuery?.trim() ? (
+          <a
+            href={
+              /^https?:\/\//i.test(sede.mapsQuery.trim())
+                ? sede.mapsQuery.trim()
+                : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(sede.mapsQuery.trim())}`
+            }
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex text-sm font-semibold text-na-editorial hover:underline"
+          >
+            Probar en Google Maps ↗
+          </a>
+        ) : null}
         <EditField label="Horario" value={sede.hours ?? ""} onChange={(v) => edit.patchDondeSede(id, { hours: v })} />
         <EditField label="Nota" value={sede.note ?? ""} onChange={(v) => edit.patchDondeSede(id, { note: v })} multiline />
       </div>,
