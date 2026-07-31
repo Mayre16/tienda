@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
+import { CarouselDotButton } from "@/components/CarouselDotButton";
 import type { HeroProductSlide } from "@/lib/editorial-hero-products";
 import { navigateEditorialHash } from "@/lib/editorial-navigation";
 
@@ -72,8 +73,10 @@ export function EditorialHeroProductCarousel({
                   }
                   sizes="(max-width: 640px) 272px, 296px"
                   unoptimized
-                  priority={i === index}
-                  loading={i === index ? "eager" : "lazy"}
+                  priority={i === 0}
+                  fetchPriority={i === 0 ? "high" : "auto"}
+                  decoding={i === 0 ? "sync" : "async"}
+                  loading={i === 0 || i === index ? "eager" : "lazy"}
                 />
               ) : null}
             </div>
@@ -109,22 +112,13 @@ export function EditorialHeroProductCarousel({
           aria-label="Productos destacados"
         >
           {slides.map((item, i) => (
-            <button
+            <CarouselDotButton
               key={item.id}
-              type="button"
-              role="tab"
-              aria-selected={i === index}
-              aria-label={`${item.category}: ${item.title}`}
+              size="sm"
+              active={i === index}
               onClick={() => goTo(i)}
-              className={`h-2 rounded-full transition-all ${
-                i === index
-                  ? isLight
-                    ? "w-6 bg-na-editorial"
-                    : "w-6 bg-na-helios"
-                  : isLight
-                    ? "w-2 bg-na-editorial/25 hover:bg-na-editorial/45"
-                    : "w-2 bg-white/40 hover:bg-white/65"
-              }`}
+              colorClassName={isLight ? "bg-na-editorial" : "bg-na-helios"}
+              label={`${item.category}: ${item.title}`}
             />
           ))}
         </div>

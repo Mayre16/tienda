@@ -3,16 +3,16 @@
 import Image from "next/image";
 import { assetUrl } from "@/lib/asset-url";
 
-/** Bust caché del navegador tras corregir la S truncada en el PNG. */
-const LOGO_ASSET_VERSION = "20260728s";
+/** Bust cachÃ© del navegador al cambiar los PNG/WebP del identificador. */
+const LOGO_ASSET_VERSION = "20260731b";
 
 /** Identificador horizontal Editorial (footer y uso general). */
 export const EDITORIAL_SUBMARCA_LOGO = {
   src: `/brand/identificadores/editorial-identificador.webp?v=${LOGO_ASSET_VERSION}`,
   fallback: `/brand/identificadores/editorial-identificador.png?v=${LOGO_ASSET_VERSION}`,
-  alt: "Librería Editorial Logos — Nueva Acrópolis",
-  width: 2404,
-  height: 414,
+  alt: "LibrerÃ­a Editorial Logos â€” Nueva AcrÃ³polis",
+  width: 1277,
+  height: 220,
 } as const;
 
 /** Identificador integrado para header (banner recortado en editorial-logos.png). */
@@ -20,8 +20,8 @@ export const EDITORIAL_HEADER_SUBMARCA_LOGO = {
   src: `/brand/identificadores/editorial-identificador-header.webp?v=${LOGO_ASSET_VERSION}`,
   fallback: `/brand/identificadores/editorial-identificador-header.png?v=${LOGO_ASSET_VERSION}`,
   alt: EDITORIAL_SUBMARCA_LOGO.alt,
-  width: 2404,
-  height: 414,
+  width: 1280,
+  height: 219,
 } as const;
 
 export const EDITORIAL_MARK_ASPECT =
@@ -56,7 +56,7 @@ const EDITORIAL_MARK_STYLE_SM = {
 type EditorialBrandMarkProps = {
   className?: string;
   priority?: boolean;
-  /** sm = compacto · md = default · lg = header integrado */
+  /** sm = compacto Â· md = default Â· lg = header integrado */
   size?: "sm" | "md" | "lg";
 };
 
@@ -90,6 +90,8 @@ export function EditorialBrandMark({
       width={logo.width}
       height={logo.height}
       priority={priority}
+      fetchPriority={priority ? "high" : "auto"}
+      decoding={priority ? "sync" : "async"}
       unoptimized
       className={`editorial-brand-mark block shrink-0 ${
         size === "lg" ? "h-full w-full" : "object-contain object-left"

@@ -32,15 +32,32 @@ export const metadata: Metadata = {
   icons: { icon: [{ url: cmsFaviconUrl("editorial"), type: "image/webp" }] },
 };
 
+/** Portada LCP típica del carrusel de bienvenida (primer libro del seed). */
+const HOME_LCP_IMAGE = "/uploads/bookstore_covers/ankor-ultimo-principe.webp";
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es" suppressHydrationWarning>
       <head>
+        <link
+          rel="preconnect"
+          href="https://editor.acropolis.adesa.com.do"
+          crossOrigin="anonymous"
+        />
+        <link rel="dns-prefetch" href="https://editor.acropolis.adesa.com.do" />
+        <link
+          rel="preload"
+          as="image"
+          href={HOME_LCP_IMAGE}
+          fetchPriority="high"
+        />
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{if(window.parent!==window){document.documentElement.classList.add("cms-edit-embedded")}}catch(e){}})();`,
+            __html: `(function(){try{if(window.parent!==window){document.documentElement.classList.add("cms-edit-embedded")}}catch(e){}try{var api=${JSON.stringify(
+              process.env.NEXT_PUBLIC_CMS_URL?.replace(/\/$/, "") || "",
+            )};if(!api)return;var u=api+"/content/editorial/published";var slot=window.__editorialCmsPublished=window.__editorialCmsPublished||{};if(slot.promise)return;slot.promise=new Promise(function(resolve){function boot(){fetch(u,{cache:"no-store"}).then(function(r){return r.ok?r.json():null}).then(function(d){slot.doc=d;resolve(d)}).catch(function(){resolve(null)})}if(window.requestIdleCallback)requestIdleCallback(boot,{timeout:2500});else setTimeout(boot,1)})}catch(e){}})();`,
           }}
         />
       </head>

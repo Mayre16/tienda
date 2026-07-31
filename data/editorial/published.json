@@ -1,0 +1,820 @@
+{
+  "version": 1,
+  "site": "editorial",
+  "updatedAt": "2026-06-26T18:26:28.194Z",
+  "sections": {
+    "editorialHeaderNav": [
+      {
+        "id": "inicio",
+        "label": "Inicio",
+        "href": "/"
+      },
+      {
+        "id": "conoce",
+        "label": "Quiénes somos",
+        "href": "/conoce-nueva-acropolis"
+      },
+      {
+        "id": "libros",
+        "label": "Libros",
+        "href": "/libros"
+      },
+      {
+        "id": "revistas",
+        "label": "Revistas",
+        "href": "/revistas"
+      },
+      {
+        "id": "regalos",
+        "label": "Regalos",
+        "href": "/regalos"
+      },
+      {
+        "id": "donde-estamos",
+        "label": "Visítanos",
+        "href": "/donde-estamos"
+      },
+      {
+        "id": "sesion",
+        "label": "Iniciar sesión",
+        "href": "https://biblioteca-oina.adesa.com.do/reader",
+        "external": true
+      }
+    ],
+    "editorialWelcome": {
+      "title": "Una editorial y librería al servicio de la filosofía",
+      "lede": "Editorial Logos es la línea de publicaciones de Nueva Acrópolis en República Dominicana: editamos, distribuimos y acercamos libros, revistas y artículos que invitan a pensar, crecer y vivir la filosofía en la vida cotidiana.",
+      "tagline": "Filosofía · Cultura · Voluntariado"
+    },
+    "editorialHomeExplore": {
+      "cards": [
+        {
+          "id": "impresos",
+          "title": "Libros impresos",
+          "description": "Catálogo en venta: filosofía, psicología, historia y más. Compra en línea o consulta disponibilidad.",
+          "hash": "catalogo-impresos"
+        },
+        {
+          "id": "digitales",
+          "title": "Libros digitales",
+          "description": "PDFs para leer y descargar. Inicia sesión en Biblioteca para acceder a tu perfil de lectura.",
+          "hash": "catalogo-digitales"
+        },
+        {
+          "id": "revistas",
+          "title": "Revistas",
+          "description": "Revista Esfinge, Anuario y publicaciones periódicas de Nueva Acrópolis.",
+          "hash": "catalogo-revistas"
+        },
+        {
+          "id": "regalos",
+          "title": "Regalos y separadores",
+          "description": "Separadores, regalos filosóficos, libretas, camisetas y Memorion — con filtros por categoría.",
+          "hash": "catalogo-regalos"
+        }
+      ]
+    },
+    "editorialFooter": {
+      "tagline": "Libros, revistas y regalos filosóficos de Nueva Acrópolis."
+    },
+    "editorialHeroImages": [
+      {
+        "id": "hero-0",
+        "src": "/img/hero/libreria-bazar.webp",
+        "alt": "Librería Editorial Logos — libros, separadores, camisetas y artículos de regalo",
+        "objectPosition": "50% 45%"
+      },
+      {
+        "id": "hero-1",
+        "src": "/img/hero/libros-1.webp",
+        "alt": "Libros de filosofía y cultura de Editorial Nueva Acrópolis",
+        "objectPosition": "50% 45%"
+      },
+      {
+        "id": "hero-2",
+        "src": "/img/hero/libros-2.webp",
+        "alt": "Publicaciones y material editorial de Nueva Acrópolis",
+        "objectPosition": "50% 40%"
+      },
+      {
+        "id": "hero-3",
+        "src": "/img/hero/taller-libros.webp",
+        "alt": "Mesa con libros y material de estudio",
+        "objectPosition": "55% 35%"
+      }
+    ],
+    "editorialRevistas": [
+      {
+        "title": "Revista Esfinge",
+        "description": "Publicación cultural y filosófica de Nueva Acrópolis, con más de cinco décadas promoviendo el pensamiento y el desarrollo humano.",
+        "href": "https://www.revistaesfinge.do/",
+        "note": "Ediciones y novedades en revistaesfinge.do",
+        "linkLabel": "Ver revista Esfinge",
+        "linkLogoUrl": "/img/revistas/esfinge-logo.webp",
+        "linkLogoAlt": "Revista Esfinge — conocimiento, reflexión y diálogo",
+        "imageUrl": "/img/revistas/esfinge-portada.webp",
+        "imageAlt": "Revista Esfinge — publicación cultural y filosófica de Nueva Acrópolis",
+        "confirmLeave": true,
+        "leaveLabel": "revistaesfinge.do"
+      },
+      {
+        "title": "Anuario — Memoria de Actividades",
+        "description": "Memoria anual de la acción de Nueva Acrópolis en cultura, ecología, voluntariado y formación filosófica en el mundo.",
+        "href": "https://www.acropolis.org/es/anuarios-internacionales/",
+        "imageUrl": "/img/revistas/anuario-portada.webp",
+        "imageAlt": "Portada del Anuario — Memoria de Actividades de Nueva Acrópolis",
+        "note": "Ediciones internacionales en acropolis.org",
+        "linkLabel": "Ver anuarios en acropolis.org",
+        "confirmLeave": true,
+        "leaveLabel": "acropolis.org"
+      }
+    ],
+    "editorialRegalos": [
+      {
+        "id": "sep-suntzu-resultados",
+        "category": "separadores",
+        "title": "Separador · Grandes resultados",
+        "description": "Cita de Sun Tzu. Al reverso: una gota que genera grandes ondas. Pasa el cursor para ver la otra cara.",
+        "quote": "Grandes resultados pueden ser conseguidos con pequeños esfuerzos.",
+        "author": "Sun Tzu",
+        "imageUrl": "/img/regalos/sep-suntzu-resultados-msg.svg",
+        "backImageUrl": "/img/regalos/sep-suntzu-resultados-art.webp",
+        "price": 150,
+        "currency": "DOP",
+        "priceNote": "RD$ 150 · consultar stock",
+        "sample": true
+      },
+      {
+        "id": "sep-nervo",
+        "category": "separadores",
+        "title": "Separador · Arquitecto del destino",
+        "description": "Cita de Amado Nervo. Al reverso: el compás del arquitecto y el camino al horizonte. Pasa el cursor para ver la otra cara.",
+        "quote": "Veo al final de mi rudo camino, que yo fui el arquitecto de mi propio destino.",
+        "author": "Amado Nervo",
+        "imageUrl": "/img/regalos/sep-nervo-msg.svg",
+        "backImageUrl": "/img/regalos/sep-nervo-art.webp",
+        "price": 150,
+        "currency": "DOP",
+        "priceNote": "RD$ 150 · consultar stock",
+        "sample": true
+      },
+      {
+        "id": "sep-suntzu-conocete",
+        "category": "separadores",
+        "title": "Separador · Conócete a ti mismo",
+        "description": "Cita de Sun Tzu. Al reverso: un lago en calma que refleja el cielo. Pasa el cursor para ver la otra cara.",
+        "quote": "Conoce al adversario y sobre todo conócete a ti mismo y serás invencible.",
+        "author": "Sun Tzu",
+        "imageUrl": "/img/regalos/sep-suntzu-conocete-msg.svg",
+        "backImageUrl": "/img/regalos/sep-suntzu-conocete-art.webp",
+        "price": 150,
+        "currency": "DOP",
+        "priceNote": "RD$ 150 · consultar stock",
+        "sample": true
+      },
+      {
+        "id": "sep-platon",
+        "category": "separadores",
+        "title": "Separador · El sabio",
+        "description": "Cita de Platón. Al reverso: el búho de Atenea sobre los libros. Pasa el cursor para ver la otra cara.",
+        "quote": "El sabio es aquel que busca aprender de todo y de todos.",
+        "author": "Platón",
+        "imageUrl": "/img/regalos/sep-platon-msg.svg",
+        "backImageUrl": "/img/regalos/sep-platon-art.webp",
+        "price": 150,
+        "currency": "DOP",
+        "priceNote": "RD$ 150 · consultar stock",
+        "sample": true
+      },
+      {
+        "id": "sep-davinci",
+        "category": "separadores",
+        "title": "Separador · Genio y trabajo",
+        "description": "Cita de Leonardo Da Vinci. Al reverso: el taller renacentista, engranajes y bocetos. Pasa el cursor para ver la otra cara.",
+        "quote": "Los hombres geniales empiezan grandes obras, los hombres trabajadores las terminan.",
+        "author": "Leonardo Da Vinci",
+        "imageUrl": "/img/regalos/sep-davinci-msg.svg",
+        "backImageUrl": "/img/regalos/sep-davinci-art.webp",
+        "price": 150,
+        "currency": "DOP",
+        "priceNote": "RD$ 150 · consultar stock",
+        "sample": true
+      },
+      {
+        "id": "sep-seneca",
+        "category": "separadores",
+        "title": "Separador · La fortaleza",
+        "description": "Cita de Séneca. Al reverso: un roble que resiste la tormenta. Pasa el cursor para ver la otra cara.",
+        "quote": "Las dificultades fortalecen la mente, como el trabajo fortalece el cuerpo.",
+        "author": "Séneca",
+        "imageUrl": "/img/regalos/sep-seneca-msg.svg",
+        "backImageUrl": "/img/regalos/sep-seneca-art.webp",
+        "price": 150,
+        "currency": "DOP",
+        "priceNote": "RD$ 150 · consultar stock",
+        "sample": true
+      },
+      {
+        "id": "lapiceros-virtudes",
+        "category": "papeleria",
+        "title": "Pack lapiceros · Prudencia, Fortaleza, Templanza y Justicia",
+        "description": "Set de cuatro lapiceros metálicos grabados con virtudes cardinales: negro Prudencia, rojo Fortaleza, azul Templanza y verde Justicia, con monograma NA y República Dominicana.",
+        "imageUrl": "/img/regalos/lapiceros-virtudes.webp",
+        "detailImageUrl": "/img/regalos/lapiceros-virtudes.webp",
+        "price": 450,
+        "currency": "DOP",
+        "priceNote": "Pack de 4 · RD$ 450",
+        "sample": true
+      },
+      {
+        "id": "resaltador-ideas",
+        "category": "papeleria",
+        "title": "Resaltador triple · Ilumina las ideas",
+        "description": "Resaltador 3 en 1 (rosa, amarillo y verde) con identificador Nueva Acrópolis · República Dominicana y el lema «Ilumina las ideas».",
+        "imageUrl": "/uploads/editorial/1782498337792-xdzsnb.webp",
+        "priceNote": "Consultar disponibilidad",
+        "sample": true,
+        "price": 100
+      },
+      {
+        "id": "libreta-conocete",
+        "category": "libretas",
+        "title": "Libreta · Conócete a ti mismo",
+        "description": "Libreta espiral con portada del cosmos y la máxima «Conócete a ti mismo y conocerás el universo y los dioses».",
+        "quote": "Conócete a ti mismo y conocerás el universo y los dioses.",
+        "author": "Inscripción del Templo de Delfos",
+        "imageUrl": "/img/regalos/libreta-conocete.webp",
+        "price": 350,
+        "currency": "DOP",
+        "priceNote": "RD$ 350 · consultar modelos",
+        "sample": true
+      },
+      {
+        "id": "libreta-escribir",
+        "category": "libretas",
+        "title": "Libreta · El arte de escribir",
+        "description": "Libreta espiral con portada alegórica de la pluma y el lema «El arte de escribir nuestros pensamientos» — ideal como diario.",
+        "quote": "El arte de escribir nuestros pensamientos.",
+        "imageUrl": "/img/regalos/libreta-escribir.webp",
+        "price": 350,
+        "currency": "DOP",
+        "priceNote": "RD$ 350 · consultar modelos",
+        "sample": true
+      },
+      {
+        "id": "libreta-lectura",
+        "category": "libretas",
+        "title": "Libreta · Amor por la lectura",
+        "description": "Libreta espiral con el árbol del saber y la frase «Donde hay amor por la lectura, hay esperanza para el futuro».",
+        "quote": "Donde hay amor por la lectura, hay esperanza para el futuro.",
+        "author": "Delia Steinberg Guzmán",
+        "imageUrl": "/img/regalos/libreta-lectura.webp",
+        "price": 350,
+        "currency": "DOP",
+        "priceNote": "RD$ 350 · consultar modelos",
+        "sample": true
+      },
+      {
+        "id": "camiseta-socrates",
+        "category": "camisetas",
+        "title": "Camiseta · Sócrates",
+        "description": "Camiseta crema con retrato grabado de Sócrates y su célebre máxima.",
+        "quote": "Solo sé que no sé nada.",
+        "author": "Sócrates",
+        "imageUrl": "/img/regalos/camiseta-socrates.webp",
+        "price": 650,
+        "currency": "DOP",
+        "priceNote": "RD$ 650 · consultar tallas",
+        "sample": true
+      },
+      {
+        "id": "camiseta-platon",
+        "category": "camisetas",
+        "title": "Camiseta · Platón",
+        "description": "Camiseta negra con cita de Platón en tipografía manuscrita.",
+        "quote": "La medida de un hombre es aquello que lo hace feliz.",
+        "author": "Platón",
+        "imageUrl": "/img/regalos/camiseta-platon.webp",
+        "price": 650,
+        "currency": "DOP",
+        "priceNote": "RD$ 650 · consultar tallas",
+        "sample": true
+      },
+      {
+        "id": "camiseta-metaphysica",
+        "category": "camisetas",
+        "title": "Camiseta · Metaphysica",
+        "description": "Camiseta negra con póster «Metaphysica»: el título en tipografía al estilo Metallica y los bustos de Platón, Aristóteles, Pitágoras y Sócrates — un guiño entre metal y metafísica.",
+        "imageUrl": "/img/regalos/camiseta-metaphysica.webp",
+        "price": 650,
+        "currency": "DOP",
+        "priceNote": "RD$ 650 · consultar tallas",
+        "sample": true
+      }
+    ],
+    "editorialMemorion": {
+      "id": "memorion",
+      "category": "papeleria",
+      "title": "Memorion — juego de cartas",
+      "description": "Juego educativo de Editorial Nueva Acrópolis para entrenar la memoria. Consulte disponibilidad y precio con nosotros.",
+      "imageUrl": "/img/regalos/memorion.webp",
+      "priceNote": "Consultar disponibilidad"
+    },
+    "editorialRegaloCategories": [
+      {
+        "id": "separadores",
+        "label": "Separadores de libros",
+        "description": "Separadores con citas filosóficas, arte clásico y la identidad de Nueva Acrópolis — Editorial Logos."
+      },
+      {
+        "id": "papeleria",
+        "label": "Regalos filosóficos",
+        "description": "Lapiceros, resaltadores y artículos de uso diario con mensajes que inspiran."
+      },
+      {
+        "id": "libretas",
+        "label": "Libretas",
+        "description": "Cuadernos tipo libreta con frases filosóficas para apuntes, reflexión o regalo."
+      },
+      {
+        "id": "camisetas",
+        "label": "Camisetas",
+        "description": "Prendas con frases filosóficas y diseños como Metaphysica."
+      },
+      {
+        "id": "editio",
+        "label": "Editio",
+        "description": "Artículos y ediciones de la línea Editio — Editorial Logos."
+      }
+    ],
+    "editorialDigitalBooks": [
+      {
+        "id": "clasicos",
+        "label": "Clásicos de Oriente y Occidente",
+        "description": "Textos filosóficos y espirituales que han inspirado a la humanidad.",
+        "books": [
+          {
+            "title": "Bhagavad Gita",
+            "author": "Anónimo",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Bhagavad_Gita.pdf",
+            "fileSize": "144 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140449184-L.jpg"
+          },
+          {
+            "title": "Dhammapada",
+            "author": "Anónimo",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Dhammapada.pdf",
+            "fileSize": "75 Kb",
+            "area": "Espiritualidad y Religión",
+            "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2020/11/Dhammpada-ebook-tienda.jpg"
+          },
+          {
+            "title": "Popol Vuh",
+            "author": "Anónimo",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Popol_Vuh.pdf",
+            "fileSize": "173 Kb",
+            "area": "Historia",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140446349-L.jpg"
+          },
+          {
+            "title": "Ética",
+            "author": "Aristóteles",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Aristoteles-Etica.pdf",
+            "fileSize": "519 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/014044619X-L.jpg"
+          },
+          {
+            "title": "Vida de los filósofos más ilustres",
+            "author": "Diógenes Laercio",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Diogenes_Laercio-Vida_de_los_filosofos_mas_ilustres.pdf",
+            "fileSize": "679 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0192828691-L.jpg"
+          },
+          {
+            "title": "Máximas",
+            "author": "Epícteto",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Epicteto-Maximas.pdf",
+            "fileSize": "49 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2020/07/arte-de-vivir-tienda.jpg"
+          },
+          {
+            "title": "La Voz del Silencio",
+            "author": "Helena P. Blavatsky",
+            "downloadUrl": "https://nueva-acropolis.es/libros/HPB-La_Voz_del_Silencio.pdf",
+            "fileSize": "76 Kb",
+            "area": "Espiritualidad y Religión",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0835604019-L.jpg"
+          },
+          {
+            "title": "Tao Te King",
+            "author": "Lao Tse",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Lao_Tse-Tao_Te_King.pdf",
+            "fileSize": "42 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/014044348X-L.jpg"
+          },
+          {
+            "title": "Tratados Morales",
+            "author": "Lucio Anneo Séneca",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Seneca-Tratados_Morales.pdf",
+            "fileSize": "296 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140445834-L.jpg"
+          },
+          {
+            "title": "Meditaciones",
+            "author": "Marco Aurelio",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Marco_Aurelio-Meditaciones.pdf",
+            "fileSize": "217 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140449334-L.jpg"
+          },
+          {
+            "title": "Versos Áureos",
+            "author": "Pitágoras",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Pitagoras-Versos_Aureos.pdf",
+            "fileSize": "13 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2021/09/pitagoras.jpg"
+          },
+          {
+            "title": "Apología de Sócrates",
+            "author": "Platón",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Platon-Apologia_de_Socrates.pdf",
+            "fileSize": "63 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140449273-L.jpg"
+          },
+          {
+            "title": "La República",
+            "author": "Platón",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Platon-La_Republica.pdf",
+            "fileSize": "702 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140449144-L.jpg"
+          },
+          {
+            "title": "Enéada VI — Sobre el Bien o el Uno",
+            "author": "Plotino",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Plotino-Eneada_VI_Sobre_el_Bien_o_el_Uno.pdf",
+            "fileSize": "38 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/0140445202-L.jpg"
+          },
+          {
+            "title": "Instrucciones al rey Merikara",
+            "author": "Ptahotep",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Ptahotep-Instrucciones_al_rey_Merikara.pdf",
+            "fileSize": "23 Kb",
+            "area": "Historia"
+          }
+        ]
+      },
+      {
+        "id": "delia",
+        "label": "Delia Steinberg Guzmán",
+        "description": "Obras de la presidenta internacional de Nueva Acrópolis.",
+        "books": [
+          {
+            "title": "El Alma de la Mujer",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-El_Alma_de_la_Mujer.pdf",
+            "fileSize": "58 Kb",
+            "area": "Psicología y Desarrollo Personal",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473014-L.jpg"
+          },
+          {
+            "title": "El Carácter según los Astros",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-El_Caracter_segun_los_Astros.pdf",
+            "fileSize": "87 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473022-L.jpg"
+          },
+          {
+            "title": "Esoterismo Práctico",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-Esoterismo_Practico.pdf",
+            "fileSize": "71 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473030-L.jpg"
+          },
+          {
+            "title": "Libertad e Inexorabilidad",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-Libertad_Inexorabilidad.pdf",
+            "fileSize": "65 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473049-L.jpg"
+          },
+          {
+            "title": "Los juegos de Maya",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-Juegos_de_Maya.pdf",
+            "fileSize": "399 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8496369106-L.jpg"
+          },
+          {
+            "title": "Hoy vi…",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-Hoy_vi.pdf",
+            "area": "Literatura",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8496369114-L.jpg"
+          },
+          {
+            "title": "Para conocerse mejor",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-Para_Conocerse_Mejor.pdf",
+            "area": "Psicología y Desarrollo Personal",
+            "coverUrl": "/uploads/bookstore_covers/para-conocerse-mejor.jpg"
+          },
+          {
+            "title": "¿Qué hacemos con el corazón y la mente?",
+            "author": "Delia Steinberg Guzmán",
+            "downloadUrl": "https://nueva-acropolis.es/libros/DSG-Que_hacemos_con_el_Corazon_y_la_Mente.pdf",
+            "area": "Psicología y Desarrollo Personal",
+            "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2024/08/quehacemosconelcorazonylamente.jpg"
+          }
+        ]
+      },
+      {
+        "id": "livraga",
+        "label": "Jorge Ángel Livraga",
+        "books": [
+          {
+            "title": "La Vida después de la Muerte",
+            "author": "Jorge Ángel Livraga Rizzi",
+            "downloadUrl": "https://nueva-acropolis.es/libros/JAL-La_Vida_despues_de_la_Muerte.pdf",
+            "fileSize": "77 Kb",
+            "area": "Filosofía",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473057-L.jpg"
+          },
+          {
+            "title": "Los siete Caminos para la Realización Espiritual",
+            "author": "Jorge Ángel Livraga Rizzi",
+            "downloadUrl": "https://nueva-acropolis.es/libros/JAL-Los_siete_Caminos_para_la_Realizacion_Espiritual.pdf",
+            "fileSize": "81 Kb",
+            "area": "Espiritualidad y Religión",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473065-L.jpg"
+          },
+          {
+            "title": "Moassy el perro",
+            "author": "Jorge Ángel Livraga Rizzi",
+            "downloadUrl": "https://nueva-acropolis.es/libros/JAL-Moassy_el_perro.pdf",
+            "area": "Literatura",
+            "coverUrl": "/uploads/bookstore_covers/moassy-el-perro.jpg"
+          },
+          {
+            "title": "El teatro místico en Grecia — La tragedia",
+            "author": "Jorge Ángel Livraga Rizzi",
+            "downloadUrl": "https://nueva-acropolis.es/libros/JAL-Teatro_Misterico_La_Tragedia.pdf",
+            "area": "Cultura",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473073-L.jpg"
+          },
+          {
+            "title": "Los Espíritus Elementales de la Naturaleza",
+            "author": "Jorge Ángel Livraga Rizzi",
+            "downloadUrl": "https://nueva-acropolis.es/libros/JAL-Espiritus_Elementales_de_la_Naturaleza.pdf",
+            "area": "Espiritualidad y Religión",
+            "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2020/06/Arte-final-Libro-A5.jpg"
+          },
+          {
+            "title": "Tebas",
+            "author": "Jorge Ángel Livraga Rizzi",
+            "downloadUrl": "https://nueva-acropolis.es/libros/JAL-Tebas.pdf",
+            "area": "Historia",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/8486473081-L.jpg"
+          }
+        ]
+      },
+      {
+        "id": "otros",
+        "label": "Otros autores",
+        "books": [
+          {
+            "title": "El arte y la belleza",
+            "author": "Miguel Ángel Padilla Moreno",
+            "downloadUrl": "https://nueva-acropolis.es/libros/MAP-Arte_y_belleza.pdf",
+            "fileSize": "5,17 Mb",
+            "area": "Cultura",
+            "coverUrl": "https://covers.openlibrary.org/b/isbn/848647309X-L.jpg"
+          },
+          {
+            "title": "Los motores ocultos del Renacimiento",
+            "author": "Varios autores",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Varios-Los_motores_ocultos_del_Renacimiento.pdf",
+            "fileSize": "1,3 Mb",
+            "area": "Historia"
+          },
+          {
+            "title": "Todo sobre la reencarnación",
+            "author": "Varios autores",
+            "downloadUrl": "https://nueva-acropolis.es/libros/Varios-Todo_sobre_reencarnacion.pdf",
+            "fileSize": "1,2 Mb",
+            "area": "Filosofía"
+          }
+        ]
+      }
+    ],
+    "editorialQuienesSomos": {
+      "libreria": {
+        "eyebrow": "Quiénes somos",
+        "title": "Editorial Logos, la librería de Nueva Acrópolis",
+        "paragraphs": [
+          "Editorial Logos es la línea de publicaciones y la librería de Nueva Acrópolis en República Dominicana. Editamos, distribuimos y acercamos libros, revistas y artículos que invitan a pensar, crecer y vivir la filosofía en la vida cotidiana.",
+          "Nuestro catálogo reúne obras de filosofía, psicología, historia, arte y desarrollo personal, junto a revistas, separadores y artículos con sentido, pensados para acompañar el estudio y la reflexión.",
+          "Más que vender libros, buscamos despertar inquietudes: que cada lectura sea una invitación a conocerse, mejorar y construir una vida con sentido."
+        ],
+        "highlights": [
+          {
+            "title": "Filosofía",
+            "text": "Obras clásicas y contemporáneas para pensar y vivir mejor."
+          },
+          {
+            "title": "Cultura",
+            "text": "Revistas y publicaciones que difunden arte, historia y ciencia."
+          },
+          {
+            "title": "Voluntariado",
+            "text": "Una editorial al servicio de un ideal de transformación."
+          }
+        ],
+        "naIntro": "Editorial Logos forma parte de un ideal más amplio.",
+        "naButton": "Qué es Nueva Acrópolis"
+      },
+      "nuevaAcropolis": {
+        "title": "Qué es Nueva Acrópolis",
+        "heroImage": {
+          "src": "/img/home/grecia.webp",
+          "alt": "Visitante contemplando el Partenón en la Acrópolis de Atenas"
+        },
+        "paragraphs": [
+          "Nueva Acrópolis es una Escuela de Filosofía que promueve la cultura y practica el voluntariado. Propone un ideal de valores permanentes para contribuir a la evolución individual y colectiva.",
+          "Desde hace más de 65 años, en más de 50 países, los programas de la Escuela de Filosofía han transformado la vida de miles de personas en todo el mundo.",
+          "Editorial Logos forma parte de este ideal en República Dominicana: editamos y acercamos libros, revistas y artículos que invitan a pensar, crecer y vivir la filosofía."
+        ],
+        "ctaIntro": "Conoce nuestra historia, actividades y sedes en República Dominicana.",
+        "ctaLabel": "Visitar acropolis.org.do",
+        "ctaHref": "http://localhost:3100/quienes-somos"
+      }
+    },
+    "editorialDonde": {
+      "visit": {
+        "eyebrow": "Visítanos",
+        "title": "Te esperamos en la Sede Naco",
+        "lede": "Pasa por nuestra librería en la Sede Naco: estanterías con obras de filosofía, psicología, historia y regalos filosóficos. Un espacio pensado para descubrir, regalar y llevar a casa el pensamiento de Nueva Acrópolis.",
+        "ctaLabel": "Ver ubicaciones y horarios",
+        "ctaHash": "donde-estamos"
+      },
+      "page": {
+        "eyebrow": "Dónde estamos",
+        "title": "Nuestras sedes",
+        "lede": "La librería principal está en Naco; también puedes acercarte a nuestras otras sedes para consultas y retiro de pedidos."
+      },
+      "contact": {
+        "phone": "(849) 352-7054",
+        "email": "info.oinadom@acropolis.org",
+        "whatsappNumber": "8493527054",
+        "whatsappCtaLabel": "Escribir por WhatsApp",
+        "whatsappMessage": "Hola, me interesa visitar la Librería Editorial Logos en {sede}."
+      },
+      "storePhoto": {
+        "src": "/img/editorial/libreria-bazar.webp",
+        "fallbackSrc": "/img/editorial/libreria-bazar.webp",
+        "alt": "Librería Editorial Logos — libros, separadores, camisetas, bolsas pintadas y recuerdos"
+      },
+      "sedes": [
+        {
+          "id": "sede-naco",
+          "name": "Naco",
+          "zone": "Ens. Naco",
+          "city": "Santo Domingo",
+          "address": "Calle Cub Scouts No. 6, 3er nivel",
+          "reference": "Antes de Av. Tiradentes, detrás de Plaza Merengue",
+          "mapsQuery": "Calle Cub Scouts 6 Naco Santo Domingo República Dominicana",
+          "hours": "Lunes a Jueves · 6:45 p.m. – 8:45 p.m.",
+          "sala": "Librería Editorial Logos",
+          "note": "Nuestra librería principal: libros impresos, regalos filosóficos y publicaciones de la editorial."
+        },
+        {
+          "id": "sede-los-prados",
+          "name": "Los Prados",
+          "zone": "Los Prados",
+          "city": "Santo Domingo",
+          "address": "Eugenio Deschamps No. 81",
+          "reference": "Plaza Los Prados",
+          "mapsQuery": "Eugenio Deschamps 81 Los Prados Santo Domingo República Dominicana",
+          "hours": "Lunes a Jueves · 6:45 p.m. – 8:45 p.m.",
+          "sala": "Punto de consulta editorial",
+          "note": "Consulta disponibilidad y retiro de pedidos en nuestra sede de Los Prados."
+        },
+        {
+          "id": "sede-santiago",
+          "name": "Santiago",
+          "zone": "Santiago de los Caballeros",
+          "city": "Santiago",
+          "address": "Dirección próximamente",
+          "mapsQuery": "Nueva Acrópolis Santiago de los Caballeros República Dominicana",
+          "hours": "Lunes a Jueves · 6:45 p.m. – 8:45 p.m.",
+          "note": "Consulta disponibilidad y retiro de pedidos de la Editorial Logos en esta sede."
+        }
+      ]
+    },
+    "editorialShopCategories": [
+      {
+        "id": "libros",
+        "label": "Libros",
+        "hash": "catalogo-impresos"
+      },
+      {
+        "id": "revistas",
+        "label": "Revistas",
+        "hash": "catalogo-revistas"
+      },
+      {
+        "id": "regalos",
+        "label": "Regalos",
+        "hash": "catalogo-regalos"
+      }
+    ],
+    "editorialBookFilters": {
+      "themes": [
+        "Filosofía",
+        "Psicología y Desarrollo Personal",
+        "Desarrollo Personal y Autoayuda",
+        "Historia",
+        "Literatura",
+        "Espiritualidad y Religión",
+        "Educación y Pedagogía"
+      ],
+      "authorFilters": [
+        {
+          "id": "",
+          "label": "Todos los autores"
+        },
+        {
+          "id": "livraga",
+          "label": "Jorge Ángel Livraga"
+        },
+        {
+          "id": "steinberg",
+          "label": "Delia Steinberg Guzmán"
+        },
+        {
+          "id": "adelantado",
+          "label": "Carlos Adelantado"
+        },
+        {
+          "id": "otros",
+          "label": "Otros autores"
+        }
+      ],
+      "publishers": [
+        "Editorial Nueva Acrópolis"
+      ]
+    },
+    "editorialPrintedBooks": [
+      {
+        "id": "libro-mqv4jc8e",
+        "bibliotecaId": 25,
+        "title": "¿qué Hacemos Con El Corazón Y La Mente?",
+        "author": "Delia Steinberg Guzmán",
+        "isbn": "9788496369122",
+        "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2024/08/quehacemosconelcorazonylamente.jpg",
+        "summary": "",
+        "price": 650,
+        "currency": "DOP",
+        "stock": 1,
+        "publisher": "Editorial Nueva Acrópolis",
+        "area_tema": "Psicología Y Desarrollo Personal",
+        "priceNote": "Ed. España / Perú",
+        "syncStatus": "error",
+        "lastSyncedAt": "2026-06-26T16:07:03.086Z",
+        "syncError": "HTTP 404"
+      },
+      {
+        "id": "libro-mqv4ksdm",
+        "bibliotecaId": 26,
+        "title": "Ankor, El Último Príncipe De La Atlántida",
+        "author": "Jorge Ángel Livraga Rizzi",
+        "isbn": "9788496369238",
+        "coverUrl": "https://tienda.acropolisperu.org/wp-content/uploads/2020/05/ANKOR.jpg",
+        "summary": "",
+        "price": 1050,
+        "currency": "DOP",
+        "stock": 2,
+        "publisher": "Editorial Nueva Acrópolis",
+        "area_tema": "Historia",
+        "priceNote": "Impreso En Perú Como «ankor El Discípulo»",
+        "syncStatus": "error",
+        "lastSyncedAt": "2026-06-26T16:08:10.666Z",
+        "syncError": "HTTP 404"
+      }
+    ]
+  }
+}
