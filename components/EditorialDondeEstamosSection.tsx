@@ -225,7 +225,7 @@ export function EditorialDondeEstamosSection() {
                 aria-controls={`editorial-sede-panel-${item.id}`}
                 id={`editorial-sede-tab-${item.id}`}
                 onClick={() => setTab(item.id)}
-                className={`rounded-xl px-4 py-2.5 text-sm font-bold transition ${
+                className={`min-h-11 rounded-xl px-4 py-3 text-sm font-bold transition ${
                   active
                     ? "bg-na-editorial text-white shadow-md shadow-na-editorial/20"
                     : "text-na-muted hover:bg-na-editorial/5 hover:text-na-ink"

@@ -10,6 +10,7 @@ import {
   persistCmsEditMode,
   readStoredCmsEditMode,
 } from "@/lib/cms/edit-mode";
+import { notifyCmsEditModeChanged } from "@/hooks/useCmsEditMode";
 
 export function CmsEditModeBootstrap() {
   const params = useSearchParams();
@@ -33,6 +34,7 @@ export function CmsEditModeBootstrap() {
 
   useEffect(() => {
     if (param) persistCmsEditMode(param);
+    notifyCmsEditModeChanged();
   }, [param]);
 
   useEffect(() => {

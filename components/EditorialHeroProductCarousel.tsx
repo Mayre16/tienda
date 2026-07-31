@@ -107,8 +107,8 @@ export function EditorialHeroProductCarousel({
 
       {n > 1 ? (
         <div
-          className="mt-4 flex items-center justify-center gap-2"
-          role="tablist"
+          className="mt-2 flex items-center justify-center"
+          role="group"
           aria-label="Productos destacados"
         >
           {slides.map((item, i) => (

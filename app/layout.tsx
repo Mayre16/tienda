@@ -66,23 +66,24 @@ export default function RootLayout({
       >
         <Suspense fallback={null}>
           <SiteAnalytics site="editorial" />
+        </Suspense>
+        <Suspense fallback={null}>
           <CmsEditModeBootstrap />
         </Suspense>
         <CmsProvider>
-          <Suspense fallback={null}>
-            <EditorialCmsEditProvider>
-              <EditorialCartProvider>
-                <EditorialNavigationProvider>
-                  <EditorialSiteHeader />
-                  <main className="flex-1 bg-white">
-                    {children}
-                    <EditorialPageMedia />
-                  </main>
-                  <EditorialFooter />
-                </EditorialNavigationProvider>
-              </EditorialCartProvider>
-            </EditorialCmsEditProvider>
-          </Suspense>
+          {/* Sin Suspense alrededor del contenido: evita CSR bailout y LCP alto en móvil. */}
+          <EditorialCmsEditProvider>
+            <EditorialCartProvider>
+              <EditorialNavigationProvider>
+                <EditorialSiteHeader />
+                <main className="flex-1 bg-white">
+                  {children}
+                  <EditorialPageMedia />
+                </main>
+                <EditorialFooter />
+              </EditorialNavigationProvider>
+            </EditorialCartProvider>
+          </EditorialCmsEditProvider>
         </CmsProvider>
       </body>
     </html>
