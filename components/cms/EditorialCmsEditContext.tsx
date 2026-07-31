@@ -1104,22 +1104,22 @@ function EditorialEditPanel({
     return chrome(
       "Sede",
       <div className="space-y-4">
-        <EditField label="Nombre" value={sede.name ?? ""} onChange={(v) => edit.patchDondeSede(id, { name: v })} />
-        <EditField label="Zona" value={sede.zone ?? ""} onChange={(v) => edit.patchDondeSede(id, { zone: v })} />
-        <EditField label="Ciudad" value={sede.city ?? ""} onChange={(v) => edit.patchDondeSede(id, { city: v })} />
-        <EditField label="Espacio / sala" value={sede.sala ?? ""} onChange={(v) => edit.patchDondeSede(id, { sala: v })} />
-        <EditField label="Dirección" value={sede.address ?? ""} onChange={(v) => edit.patchDondeSede(id, { address: v })} multiline />
-        <EditField label="Referencia" value={sede.reference ?? ""} onChange={(v) => edit.patchDondeSede(id, { reference: v })} multiline />
-        <EditField
-          label="Enlace o búsqueda de Google Maps"
-          value={sede.mapsQuery ?? ""}
-          onChange={(v) => edit.patchDondeSede(id, { mapsQuery: v })}
-          multiline
-        />
-        <p className="-mt-2 text-xs text-slate-500">
-          Puede pegar el enlace completo de Google Maps; el botón del sitio lo
-          abrirá tal cual. También acepta texto de búsqueda.
+        <p className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-xs text-amber-950">
+          Dirección, zona y Maps se toman del sitio principal (
+          <strong>Acrópolis → Dónde estamos</strong>). Aquí solo editas espacio,
+          horario y nota de la librería.
         </p>
+        <p className="text-sm text-slate-700">
+          <span className="font-semibold text-slate-900">{sede.name}</span>
+          {sede.zone ? ` · ${sede.zone}` : ""}
+          {sede.city ? ` · ${sede.city}` : ""}
+        </p>
+        <p className="whitespace-pre-wrap text-sm text-slate-600">
+          {sede.address || "—"}
+        </p>
+        {sede.reference ? (
+          <p className="text-xs text-slate-500">{sede.reference}</p>
+        ) : null}
         {sede.mapsQuery?.trim() ? (
           <a
             href={
@@ -1131,9 +1131,10 @@ function EditorialEditPanel({
             rel="noopener noreferrer"
             className="inline-flex text-sm font-semibold text-na-editorial hover:underline"
           >
-            Probar en Google Maps ↗
+            Ver en Google Maps ↗
           </a>
         ) : null}
+        <EditField label="Espacio / sala" value={sede.sala ?? ""} onChange={(v) => edit.patchDondeSede(id, { sala: v })} />
         <EditField label="Horario" value={sede.hours ?? ""} onChange={(v) => edit.patchDondeSede(id, { hours: v })} />
         <EditField label="Nota" value={sede.note ?? ""} onChange={(v) => edit.patchDondeSede(id, { note: v })} multiline />
       </div>,

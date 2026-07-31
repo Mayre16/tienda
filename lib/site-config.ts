@@ -74,7 +74,7 @@ export const SUBMARCA_LOGO = {
 };
 
 export const LEGAL_DOMICILE =
-  "Calle Cub Scouts No. 6, Ens. Naco, Santo Domingo";
+  "C. Cub Scouts 6, Ens. Naco, Santo Domingo, República Dominicana";
 
 /** Contacto general e información (legal, sedes, consultas). */
 export const INFO_EMAIL =

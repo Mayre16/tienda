@@ -1,72 +1,99 @@
 /**
  * Sincroniza las sedes del sitio principal hacia Editorial Logos (build-time).
  *
- * Lee las sedes publicadas en el CMS del sitio principal
- * (editor/data/acropolis/published.json → sections.venues, kind === "sede")
- * y genera lib/editorial-sedes.generated.ts con sus datos factuales (dirección,
- * zona, ciudad, mapa). La presentación específica de la librería (sala/nota) se
- * aplica como override en lib/editorial-locations.ts.
+ * Prioridad de fuente:
+ * 1. CMS publicado (NEXT_PUBLIC_CMS_URL / CMS_URL) — CI y producción
+ * 2. Archivos locales del monorepo (editor/ o principal/)
  *
- * Ejecutar antes de compilar/desplegar Editorial:  npm run sedes:sync
+ * Genera lib/editorial-sedes.generated.ts. Regenerar: npm run sedes:sync
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.join(path.dirname(fileURLToPath(import.meta.url)), "..");
+const OUT = path.join(ROOT, "lib/editorial-sedes.generated.ts");
+
 const PUBLISHED_CANDIDATES = [
   path.join(ROOT, "../editor/data/acropolis/published.json"),
   path.join(ROOT, "../principal/data/acropolis/published.json"),
 ];
-const PUBLISHED = PUBLISHED_CANDIDATES.find((p) => fs.existsSync(p));
-const OUT = path.join(ROOT, "lib/editorial-sedes.generated.ts");
 
-if (!PUBLISHED) {
-  console.error(
-    "No se encontró el contenido publicado del sitio principal. Rutas probadas:\n",
-    PUBLISHED_CANDIDATES.map((p) => `  - ${p}`).join("\n"),
-  );
-  process.exit(1);
+function cmsPublishedUrl() {
+  const explicit = process.env.CMS_ACROPOLIS_PUBLISHED_URL?.trim();
+  if (explicit) return explicit.replace(/\/$/, "");
+  const base = (
+    process.env.NEXT_PUBLIC_CMS_URL ||
+    process.env.CMS_URL ||
+    "https://editor.acropolis.adesa.com.do/api"
+  ).replace(/\/$/, "");
+  return `${base}/content/acropolis/published`;
 }
 
-const doc = JSON.parse(fs.readFileSync(PUBLISHED, "utf8"));
-const venues = doc?.sections?.venues ?? [];
-const hidden = new Set(doc?.sections?.venuesHidden ?? []);
+async function loadPublished() {
+  const url = cmsPublishedUrl();
+  try {
+    const res = await fetch(url, { headers: { Accept: "application/json" } });
+    if (res.ok) {
+      const doc = await res.json();
+      if (doc?.version === 1 && Array.isArray(doc?.sections?.venues)) {
+        console.log("Fuente sedes: CMS", url, "updatedAt", doc.updatedAt ?? "?");
+        return doc;
+      }
+    }
+    console.warn("CMS sedes no usable (HTTP", res.status, ") — probando archivos locales…");
+  } catch (err) {
+    console.warn("CMS sedes no alcanzable:", err?.message ?? err, "— archivos locales…");
+  }
 
-const sedes = venues
-  .filter((v) => v && v.kind === "sede" && !hidden.has(v.id))
-  .map((v) => ({
-    id: String(v.id),
-    name: String(v.name ?? ""),
-    zone: String(v.zone ?? ""),
-    city: String(v.city ?? ""),
-    address: String(v.address ?? ""),
-    reference: v.reference ? String(v.reference) : undefined,
-    mapsQuery: String(v.mapsQuery ?? v.address ?? v.name ?? ""),
-  }));
-
-if (sedes.length === 0) {
-  console.error("No se encontraron sedes (kind: 'sede') publicadas en el sitio principal.");
-  process.exit(1);
+  const local = PUBLISHED_CANDIDATES.find((p) => fs.existsSync(p));
+  if (!local) {
+    console.error(
+      "No se encontró published.json del sitio principal. Rutas:\n",
+      PUBLISHED_CANDIDATES.map((p) => `  - ${p}`).join("\n"),
+      "\nURL CMS:",
+      url,
+    );
+    process.exit(1);
+  }
+  console.log("Fuente sedes: archivo", local);
+  return JSON.parse(fs.readFileSync(local, "utf8"));
 }
 
-const entries = sedes
-  .map((s) => {
-    const lines = [
-      `    id: ${JSON.stringify(s.id)},`,
-      `    name: ${JSON.stringify(s.name)},`,
-      `    zone: ${JSON.stringify(s.zone)},`,
-      `    city: ${JSON.stringify(s.city)},`,
-      `    address: ${JSON.stringify(s.address)},`,
-    ];
-    if (s.reference) lines.push(`    reference: ${JSON.stringify(s.reference)},`);
-    lines.push(`    mapsQuery: ${JSON.stringify(s.mapsQuery)},`);
-    return `  {\n${lines.join("\n")}\n  },`;
-  })
-  .join("\n");
+function sedesFromDoc(doc) {
+  const venues = doc?.sections?.venues ?? [];
+  const hidden = new Set(doc?.sections?.venuesHidden ?? []);
+  return venues
+    .filter((v) => v && v.kind === "sede" && !hidden.has(v.id))
+    .map((v) => ({
+      id: String(v.id),
+      name: String(v.name ?? ""),
+      zone: String(v.zone ?? ""),
+      city: String(v.city ?? ""),
+      address: String(v.address ?? ""),
+      reference: v.reference ? String(v.reference) : undefined,
+      mapsQuery: String(v.mapsQuery ?? v.address ?? v.name ?? ""),
+    }));
+}
 
-const file = `// AUTOGENERADO por scripts/sync-sedes.mjs — NO editar a mano.
-// Fuente: editor/data/acropolis/published.json (sedes publicadas del sitio principal).
+function writeGenerated(sedes) {
+  const entries = sedes
+    .map((s) => {
+      const lines = [
+        `    id: ${JSON.stringify(s.id)},`,
+        `    name: ${JSON.stringify(s.name)},`,
+        `    zone: ${JSON.stringify(s.zone)},`,
+        `    city: ${JSON.stringify(s.city)},`,
+        `    address: ${JSON.stringify(s.address)},`,
+      ];
+      if (s.reference) lines.push(`    reference: ${JSON.stringify(s.reference)},`);
+      lines.push(`    mapsQuery: ${JSON.stringify(s.mapsQuery)},`);
+      return `  {\n${lines.join("\n")}\n  },`;
+    })
+    .join("\n");
+
+  const file = `// AUTOGENERADO por scripts/sync-sedes.mjs — NO editar a mano.
+// Fuente: sedes publicadas del sitio principal (CMS acropolis / published.json).
 // Regenerar con: npm run sedes:sync
 
 export type SyncedSede = {
@@ -84,6 +111,20 @@ ${entries}
 ];
 `;
 
-fs.writeFileSync(OUT, file, "utf8");
-console.log(`Sedes sincronizadas (${sedes.length}):`, sedes.map((s) => s.name).join(", "));
+  fs.writeFileSync(OUT, file, "utf8");
+}
+
+const doc = await loadPublished();
+const sedes = sedesFromDoc(doc);
+
+if (sedes.length === 0) {
+  console.error("No se encontraron sedes (kind: 'sede') en el sitio principal.");
+  process.exit(1);
+}
+
+writeGenerated(sedes);
+console.log(
+  `Sedes sincronizadas (${sedes.length}):`,
+  sedes.map((s) => `${s.name} → ${s.address}`).join(" | "),
+);
 console.log("Generado:", OUT);

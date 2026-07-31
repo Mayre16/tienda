@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 3300",
-    "build": "next build",
+    "build": "npm run sedes:sync && next build",
     "start": "next start -p 3300",
     "lint": "next lint",
     "identificador:export": "node scripts/export-identificador.mjs",

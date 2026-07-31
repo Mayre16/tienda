@@ -203,19 +203,22 @@ export function mergeEditorialStorePhoto(cms: CmsDocument | null | undefined) {
 
 function mergeEditorialSedeItem(
   fb: EditorialSede | undefined,
-  cms: CmsEditorialSede,
+  cms: CmsEditorialSede | undefined,
 ): EditorialSede {
+  const id = fb?.id ?? cms?.id ?? "";
   return {
-    id: cms.id,
-    name: cms.name ?? fb?.name ?? cms.id,
-    zone: cms.zone ?? fb?.zone ?? "",
-    city: cms.city ?? fb?.city ?? "",
-    address: cms.address ?? fb?.address ?? "",
-    reference: cms.reference ?? fb?.reference,
-    mapsQuery: cms.mapsQuery ?? fb?.mapsQuery ?? "",
-    hours: cms.hours ?? fb?.hours ?? EDITORIAL_STORE_HOURS,
-    sala: cms.sala ?? fb?.sala,
-    note: cms.note ?? fb?.note ?? "",
+    id,
+    // Dirección / mapa: siempre del sitio principal (fallback sync).
+    name: fb?.name ?? cms?.name ?? id,
+    zone: fb?.zone ?? cms?.zone ?? "",
+    city: fb?.city ?? cms?.city ?? "",
+    address: fb?.address ?? cms?.address ?? "",
+    reference: fb?.reference ?? cms?.reference,
+    mapsQuery: fb?.mapsQuery ?? cms?.mapsQuery ?? "",
+    // Horario / sala / nota: CMS Editorial.
+    hours: cms?.hours ?? fb?.hours ?? EDITORIAL_STORE_HOURS,
+    sala: cms?.sala ?? fb?.sala,
+    note: cms?.note ?? fb?.note ?? "",
   };
 }
 
@@ -223,18 +226,14 @@ export function mergeEditorialSedes(
   fallback: EditorialSede[],
   cms: CmsDocument | null | undefined,
 ): EditorialSede[] {
-  const sedes = cms?.sections.editorialDonde?.sedes;
-  if (!sedes?.length) return fallback;
-  const fbMap = new Map(fallback.map((sede) => [sede.id, sede]));
-  const seen = new Set<string>();
-  const merged = sedes.map((sede) => {
-    seen.add(sede.id);
-    return mergeEditorialSedeItem(fbMap.get(sede.id), sede);
-  });
-  for (const fb of fallback) {
-    if (!seen.has(fb.id)) merged.push(fb);
+  const cmsList = cms?.sections.editorialDonde?.sedes ?? [];
+  const cmsMap = new Map(cmsList.map((sede) => [sede.id, sede]));
+  // Lista canónica = sedes del principal; el CMS solo aporta presentación.
+  if (fallback.length) {
+    return fallback.map((fb) => mergeEditorialSedeItem(fb, cmsMap.get(fb.id)));
   }
-  return merged;
+  if (!cmsList.length) return fallback;
+  return cmsList.map((sede) => mergeEditorialSedeItem(undefined, sede));
 }
 
 function mergeRevistaItem(
