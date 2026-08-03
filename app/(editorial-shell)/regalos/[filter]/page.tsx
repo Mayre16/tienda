@@ -1,8 +1,17 @@
-import { REGALO_FILTER_STATIC_SLUGS } from "@/lib/editorial-navigation";
-
 /** Rutas estáticas para filtros (/regalos/separadores, /regalos/jornadas-2026, etc.). */
 export function generateStaticParams() {
-  return REGALO_FILTER_STATIC_SLUGS.map((filter) => ({ filter }));
+  return [
+    { filter: "separadores" },
+    { filter: "papeleria" },
+    { filter: "libretas" },
+    { filter: "camisetas" },
+    { filter: "editio" },
+    { filter: "memorion" },
+    { filter: "accesorios" },
+    { filter: "articulos" },
+    { filter: "jornadas-2026" },
+    { filter: "jornadas" },
+  ];
 }
 
 export default function RegalosFilterPage() {
