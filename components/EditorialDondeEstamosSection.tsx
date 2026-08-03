@@ -13,6 +13,7 @@ import {
   type EditorialDondeContact,
   type EditorialSede,
   type EditorialSedeId,
+  editorialMapsEmbedFallback,
   editorialMapsEmbedUrl,
   editorialMapsUrl,
   editorialSedeWhatsAppUrl,
@@ -50,7 +51,10 @@ function LazyMapEmbed({ sede }: { sede: EditorialSede }) {
       {ready ? (
         <iframe
           title={`Mapa — ${sede.name}`}
-          src={editorialMapsEmbedUrl(sede.mapsQuery)}
+          src={editorialMapsEmbedUrl(
+            sede.mapsEmbedQuery ?? sede.mapsQuery,
+            sede.mapsEmbedQuery ?? editorialMapsEmbedFallback(sede),
+          )}
           className="aspect-[4/3] min-h-[280px] w-full border-0 lg:min-h-[360px]"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"

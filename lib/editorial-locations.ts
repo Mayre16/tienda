@@ -16,6 +16,8 @@ export type EditorialSede = {
   address: string;
   reference?: string;
   mapsQuery: string;
+  /** Texto/coords solo para el iframe (si mapsQuery es un enlace corto). */
+  mapsEmbedQuery?: string;
   hours: string;
   note: string;
   /** Sala o espacio donde está la librería en la sede. */
@@ -136,18 +138,38 @@ export function editorialMapsUrl(query: string): string {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(t)}`;
 }
 
-export function editorialMapsEmbedUrl(query: string): string {
+/** Dirección estable para el iframe cuando mapsQuery es goo.gl / share.google. */
+export function editorialMapsEmbedFallback(sede: {
+  address?: string;
+  zone?: string;
+  city?: string;
+}): string {
+  return [sede.address, sede.zone, sede.city, "República Dominicana"]
+    .map((p) => p?.trim())
+    .filter(Boolean)
+    .join(", ");
+}
+
+export function editorialMapsEmbedUrl(
+  query: string,
+  fallbackSearch?: string,
+): string {
   const t = query.trim();
   const gps = parseLatLon(t);
   if (gps) {
-    return `https://maps.google.com/maps?q=${gps.lat},${gps.lon}&hl=es&z=16&output=embed`;
+    return `https://maps.google.com/maps?q=${gps.lat},${gps.lon}&hl=es&z=17&output=embed`;
   }
   const place = t.match(/\/maps\/place\/([^/@]+)/);
   if (place) {
     const name = decodeURIComponent(place[1].replace(/\+/g, " "));
-    return `https://maps.google.com/maps?q=${encodeURIComponent(name)}&hl=es&z=16&output=embed`;
+    return `https://maps.google.com/maps?q=${encodeURIComponent(name)}&hl=es&z=17&output=embed`;
   }
-  return `https://maps.google.com/maps?q=${encodeURIComponent(t)}&hl=es&z=16&output=embed`;
+  // Enlaces cortos no se pueden embeber ni geocodifican bien.
+  if (/maps\.app\.goo\.gl|goo\.gl\/maps|share\.google\//i.test(t)) {
+    const q = (fallbackSearch ?? t).trim();
+    return `https://maps.google.com/maps?q=${encodeURIComponent(q)}&hl=es&z=17&output=embed`;
+  }
+  return `https://maps.google.com/maps?q=${encodeURIComponent(t)}&hl=es&z=17&output=embed`;
 }
 
 export function mergeEditorialDondeContactFields(
