@@ -33,12 +33,23 @@ function cmsPublishedUrl() {
 async function loadPublished() {
   const url = cmsPublishedUrl();
   try {
-    const res = await fetch(url, { headers: { Accept: "application/json" } });
-    if (res.ok) {
-      const doc = await res.json();
-      if (doc?.version === 1 && Array.isArray(doc?.sections?.venues)) {
-        console.log("Fuente sedes: CMS", url, "updatedAt", doc.updatedAt ?? "?");
-        return doc;
+    const res = await fetch(url, {
+      headers: {
+        Accept: "application/json",
+        "User-Agent": "tienda-sedes-sync/1.0 (+github-actions)",
+      },
+    });
+    const text = await res.text();
+    const trimmed = text.trim();
+    if (res.ok && trimmed && !trimmed.startsWith("<")) {
+      try {
+        const doc = JSON.parse(trimmed);
+        if (doc?.version === 1 && Array.isArray(doc?.sections?.venues)) {
+          console.log("Fuente sedes: CMS", url, "updatedAt", doc.updatedAt ?? "?");
+          return doc;
+        }
+      } catch {
+        /* HTML/JSON inválido */
       }
     }
     console.warn("CMS sedes no usable (HTTP", res.status, ") — probando archivos locales…");
@@ -47,17 +58,27 @@ async function loadPublished() {
   }
 
   const local = PUBLISHED_CANDIDATES.find((p) => fs.existsSync(p));
-  if (!local) {
-    console.error(
-      "No se encontró published.json del sitio principal. Rutas:\n",
-      PUBLISHED_CANDIDATES.map((p) => `  - ${p}`).join("\n"),
-      "\nURL CMS:",
-      url,
-    );
-    process.exit(1);
+  if (local) {
+    console.log("Fuente sedes: archivo", local);
+    return JSON.parse(fs.readFileSync(local, "utf8"));
   }
-  console.log("Fuente sedes: archivo", local);
-  return JSON.parse(fs.readFileSync(local, "utf8"));
+
+  // CI: sin monorepo ni CMS usable — conservar el generated ya committed.
+  if (fs.existsSync(OUT)) {
+    console.warn(
+      "Sin CMS ni published.json local; se conserva",
+      path.relative(ROOT, OUT),
+    );
+    return null;
+  }
+
+  console.error(
+    "No se encontró published.json del sitio principal. Rutas:\n",
+    PUBLISHED_CANDIDATES.map((p) => `  - ${p}`).join("\n"),
+    "\nURL CMS:",
+    url,
+  );
+  process.exit(1);
 }
 
 function sedesFromDoc(doc) {
@@ -115,9 +136,18 @@ ${entries}
 }
 
 const doc = await loadPublished();
+if (!doc) {
+  console.log("OK (sin regenerar):", OUT);
+  process.exit(0);
+}
+
 const sedes = sedesFromDoc(doc);
 
 if (sedes.length === 0) {
+  if (fs.existsSync(OUT)) {
+    console.warn("CMS/local sin sedes; se conserva", path.relative(ROOT, OUT));
+    process.exit(0);
+  }
   console.error("No se encontraron sedes (kind: 'sede') en el sitio principal.");
   process.exit(1);
 }
