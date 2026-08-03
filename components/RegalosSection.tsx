@@ -167,43 +167,60 @@ function RegaloCard({
   if (isSeparador) {
     return (
       <>
-        <div className="relative">
+        <article className="relative overflow-hidden rounded-2xl border border-na-editorial/10 bg-white shadow-na-soft transition hover:-translate-y-0.5 hover:border-na-editorial/25 hover:shadow-na-card">
           {onEdit ? (
             <EditorialEditPencil label={`Editar ${item.title}`} onClick={onEdit} />
           ) : null}
-        <button
-          type="button"
-          onClick={openDetail}
-          onMouseEnter={() => setShowBack(true)}
-          onFocus={() => setShowBack(true)}
-          className="group w-full overflow-hidden rounded-2xl border border-na-editorial/10 bg-white text-left shadow-na-soft transition hover:-translate-y-0.5 hover:border-na-editorial/25 hover:shadow-na-card focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-na-editorial"
-        >
-          <RegaloCardImage
-            item={item}
-            showBack={showBack}
-            imageBoxClass={imageBoxClass}
-            imagePad={imagePad}
-            imageSizes={imageSizes}
-          />
-          <div className="space-y-1 p-3">
-            <h4 className="line-clamp-2 text-xs font-bold leading-snug text-na-ink">
-              {titleText}
-            </h4>
-            {item.price != null && item.price > 0 ? (
-              <p className="text-[11px] font-semibold text-na-editorialDark">
-                {formatCartMoney(item.price, item.currency ?? "DOP")}
+          <button
+            type="button"
+            onClick={openDetail}
+            onMouseEnter={() => setShowBack(true)}
+            onFocus={() => setShowBack(true)}
+            className="group w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-na-editorial"
+          >
+            <RegaloCardImage
+              item={item}
+              showBack={showBack}
+              imageBoxClass={imageBoxClass}
+              imagePad={imagePad}
+              imageSizes={imageSizes}
+            />
+            <div className="space-y-1 px-3 pt-3">
+              <h4 className="line-clamp-2 text-xs font-bold leading-snug text-na-ink">
+                {titleText}
+              </h4>
+              {item.price != null && item.price > 0 ? (
+                <p className="text-[11px] font-semibold text-na-editorialDark">
+                  {formatCartMoney(item.price, item.currency ?? "DOP")}
+                </p>
+              ) : item.priceNote ? (
+                <p className="text-[11px] font-semibold text-na-editorialDark">
+                  {item.priceNote}
+                </p>
+              ) : null}
+              <p className="pt-1 text-[11px] font-semibold text-na-editorial">
+                Ver detalle →
               </p>
-            ) : item.priceNote ? (
-              <p className="text-[11px] font-semibold text-na-editorialDark">
-                {item.priceNote}
-              </p>
-            ) : null}
-            <p className="pt-1 text-[11px] font-semibold text-na-editorial">
-              Ver detalle →
-            </p>
+            </div>
+          </button>
+          <div className="flex items-center justify-end gap-1.5 px-3 pb-3 pt-2">
+            <AddToCartButton
+              item={regaloToCartItem(item)}
+              iconOnly
+              hideWhenUnavailable
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-na-editorial text-white transition hover:bg-na-editorialDark"
+            />
+            <button
+              type="button"
+              onClick={() => void shareRegaloItem(item)}
+              aria-label={`Compartir ${item.title}`}
+              title="Compartir"
+              className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
+            >
+              <Share2 className="h-3.5 w-3.5" aria-hidden />
+            </button>
           </div>
-        </button>
-        </div>
+        </article>
         <RegaloDetailDialog
           item={item}
           open={open}

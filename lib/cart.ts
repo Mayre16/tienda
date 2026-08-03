@@ -11,6 +11,8 @@ export type CartItem = {
   id: string | number;
   title: string;
   subtitle?: string;
+  /** Texto corto para el correo de pedido (descripción / resumen). */
+  description?: string;
   price: number;
   currency: string;
   quantity: number;
@@ -32,12 +34,14 @@ export function cartItemKey(kind: CartItemKind, id: string | number): string {
 
 export function bookToCartItem(book: StoreBook, quantity = 1): CartItem | null {
   if (!isBookCheckoutEligible(book) || book.price == null) return null;
+  const summary = String(book.summary ?? "").trim();
   return {
     key: cartItemKey("book", book.id),
     kind: "book",
     id: book.id,
     title: book.title,
     subtitle: book.author || undefined,
+    description: summary ? summary.slice(0, 400) : undefined,
     price: book.price,
     currency: book.currency || "DOP",
     quantity: Math.min(quantity, Math.max(book.stock, 1)),
@@ -51,12 +55,14 @@ export function regaloToCartItem(
   quantity = 1,
 ): CartItem | null {
   if (item.price == null || item.price <= 0) return null;
+  const description = String(item.description ?? "").trim();
   return {
     key: cartItemKey("regalo", item.id),
     kind: "regalo",
     id: item.id,
     title: item.title,
     subtitle: item.author || undefined,
+    description: description ? description.slice(0, 400) : undefined,
     price: item.price,
     currency: item.currency ?? "DOP",
     quantity,
