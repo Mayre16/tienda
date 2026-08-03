@@ -257,9 +257,21 @@ export function loadEditableDoc(draft: CmsDocument): EditorialEditableState {
     revistas: s.editorialRevistas?.length
       ? s.editorialRevistas
       : codeToCmsRevistas(REVISTAS),
-    regalos: s.editorialRegalos?.length
-      ? s.editorialRegalos
-      : codeToCmsRegalos(REGALOS),
+    regalos: (() => {
+      const base = s.editorialRegalos?.length
+        ? [...s.editorialRegalos]
+        : codeToCmsRegalos(REGALOS);
+      // Ítems solo-seed (p. ej. Jornadas 2026) deben estar en el estado editable
+      // para que ✎ Editar abra el panel y se puedan guardar.
+      const ids = new Set(base.map((r) => r.id));
+      for (const seed of codeToCmsRegalos(REGALOS)) {
+        if (!ids.has(seed.id)) {
+          base.push(seed);
+          ids.add(seed.id);
+        }
+      }
+      return base;
+    })(),
     memorion: { ...defaultMemorion(), ...s.editorialMemorion },
     // Si el borrador solo tiene categorías placeholder (papelería/juegos/otros)
     // sin productos reales, usar el catálogo de código (separadores, camisetas…).
@@ -276,10 +288,20 @@ export function loadEditableDoc(draft: CmsDocument): EditorialEditableState {
           (r) =>
             r.category === "separadores" || r.category === "camisetas",
         );
-      if (!cats.length || placeholderOnly) {
-        return codeToCmsRegaloCategories();
+      let next =
+        !cats.length || placeholderOnly
+          ? codeToCmsRegaloCategories()
+          : [...cats];
+      const seedCats = codeToCmsRegaloCategories();
+      for (const seed of seedCats) {
+        if (!next.some((c) => c.id === seed.id)) next.push(seed);
       }
-      return cats;
+      const jIdx = next.findIndex((c) => c.id === "jornadas-2026");
+      if (jIdx > 0) {
+        const [j] = next.splice(jIdx, 1);
+        next = [j, ...next];
+      }
+      return next;
     })(),
     digitalBooks: s.editorialDigitalBooks?.length
       ? s.editorialDigitalBooks

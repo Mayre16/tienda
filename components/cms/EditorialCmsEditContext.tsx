@@ -28,6 +28,7 @@ import {
 import {
   buildEditorialDoc,
   cmsPrintedBookFromStore,
+  codeToCmsRegalos,
   loadEditableDoc,
   newHeroImageId,
   newPrintedBookId,
@@ -35,6 +36,7 @@ import {
   newRegaloCategoryId,
   type EditorialEditableState,
 } from "@/lib/cms/editorial-display";
+import { REGALOS } from "@/lib/editorial-extras";
 import { extractCmsSlugFromTags, fetchStoreBooks, type StoreBook } from "@/lib/bookstore";
 import {
   isCmsEditOrigin,
@@ -599,10 +601,14 @@ function EditorialEditPanel({
 
   if (selectedId.startsWith("regalo:")) {
     const id = selectedId.slice("regalo:".length);
+    const seedItem =
+      id !== "memorion"
+        ? codeToCmsRegalos(REGALOS.filter((r) => r.id === id))[0]
+        : undefined;
     const item =
       id === "memorion"
         ? state.memorion
-        : state.regalos.find((r) => r.id === id);
+        : (state.regalos.find((r) => r.id === id) ?? seedItem);
     if (!item) return null;
     const onPatch = (patch: Partial<CmsEditorialRegalo>) =>
       id === "memorion"
@@ -632,6 +638,18 @@ function EditorialEditPanel({
         <UrlImageField label="Foto reverso" url={item.backImageUrl ?? ""} token={token} onUrlChange={(v) => onPatch({ backImageUrl: v })} />
         <EditField label="Precio (número)" value={item.price != null ? String(item.price) : ""} onChange={(v) => onPatch({ price: v ? Number(v) : null })} />
         <EditField label="Nota de precio" value={item.priceNote ?? ""} onChange={(v) => onPatch({ priceNote: v })} />
+        <label className="flex items-center gap-2 text-sm font-medium text-slate-700">
+          <input
+            type="checkbox"
+            checked={item.sample === true}
+            onChange={(e) => onPatch({ sample: e.target.checked })}
+          />
+          Mostrar etiqueta «Ejemplo»
+        </label>
+        <p className="text-xs text-slate-500">
+          Desmarca el check para quitar el badge naranja «Ejemplo» de la
+          tarjeta en la tienda.
+        </p>
       </div>,
     );
   }
@@ -1148,7 +1166,7 @@ function EditorialCmsEditInner({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [baseDoc, setBaseDoc] = useState<CmsDocument | null>(null);
   const [state, setState] = useState<EditorialEditableState | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedIdState] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
@@ -1167,6 +1185,25 @@ function EditorialCmsEditInner({ children }: { children: ReactNode }) {
     },
     [markDirty],
   );
+
+  /** Al editar un regalo solo-seed (Jornadas…), lo mete en el borrador. */
+  const setSelectedId = useCallback((id: string | null) => {
+    if (id?.startsWith("regalo:")) {
+      const rid = id.slice("regalo:".length);
+      if (rid && rid !== "memorion") {
+        setState((prev) => {
+          if (!prev || prev.regalos.some((r) => r.id === rid)) return prev;
+          const seed = REGALOS.find((r) => r.id === rid);
+          if (!seed) return prev;
+          return {
+            ...prev,
+            regalos: [...prev.regalos, ...codeToCmsRegalos([seed])],
+          };
+        });
+      }
+    }
+    setSelectedIdState(id);
+  }, []);
 
   const applyLoaded = useCallback((draft: CmsDocument) => {
     setBaseDoc(draft);
@@ -1318,12 +1355,31 @@ function EditorialCmsEditInner({ children }: { children: ReactNode }) {
             ),
           })),
         patchRegalo: (id, patch) =>
-          updateState((s) => ({
-            ...s,
-            regalos: s.regalos.map((r) =>
-              r.id === id ? { ...r, ...patch } : r,
-            ),
-          })),
+          updateState((s) => {
+            const idx = s.regalos.findIndex((r) => r.id === id);
+            if (idx >= 0) {
+              return {
+                ...s,
+                regalos: s.regalos.map((r) =>
+                  r.id === id ? { ...r, ...patch } : r,
+                ),
+              };
+            }
+            // Producto visible por seed pero aún no en el borrador CMS.
+            return {
+              ...s,
+              regalos: [
+                ...s.regalos,
+                {
+                  id,
+                  title: "Producto",
+                  description: "",
+                  imageUrl: "",
+                  ...patch,
+                },
+              ],
+            };
+          }),
         patchMemorion: (patch) =>
           updateState((s) => ({
             ...s,
