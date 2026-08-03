@@ -323,10 +323,6 @@ function EditorialCartDrawerPanel() {
           )}
           Solicitar link de pago
         </button>
-        <p className="mt-2 text-center text-[11px] text-na-muted">
-          Envía el carrito a Civis (Leslie) con foto, descripción y cantidades.
-          Usted recibe copia; ellos le envían el enlace de pago.
-        </p>
       </div>
     </aside>
   );
