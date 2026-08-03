@@ -16,6 +16,9 @@
     var(--editorial-mark-aspect, 5.845) * var(--editorial-mark-height) * 0.115
   );
   background: var(--editorial-header-brand);
+  /* Separación blanca entre el header naranja y el hero / contenido */
+  border-bottom: 4px solid #fff;
+  box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.04);
 }
 
 .editorial-site-header__row {
