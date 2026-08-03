@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import { Search, X } from "lucide-react";
+import { Search, Share2, X } from "lucide-react";
 import {
   type StoreBook,
   formatPrice,
@@ -18,6 +18,7 @@ import {
 } from "@/lib/cms/hooks";
 import { EditorialEditPencil } from "@/components/cms/CmsEditFields";
 import { useEditorialCmsEdit } from "@/components/cms/EditorialCmsEditContext";
+import { shareStoreBook } from "@/lib/book-share";
 
 function BookDetail({
   book,
@@ -92,8 +93,20 @@ function BookDetail({
               {book.summary}
             </p>
           ) : null}
-          <div className="mt-4">
-            <AddToCartButton item={bookToCartItem(book)} />
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <AddToCartButton
+              item={bookToCartItem(book)}
+              hideWhenUnavailable
+              iconOnly
+            />
+            <button
+              type="button"
+              onClick={() => void shareStoreBook(book)}
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-full border border-na-editorial/25 bg-white px-3 text-sm font-bold text-na-editorial transition hover:bg-na-editorial/5"
+            >
+              <Share2 className="h-4 w-4 shrink-0" aria-hidden />
+              Compartir
+            </button>
           </div>
         </div>
       </div>
@@ -378,7 +391,7 @@ export function EditorialCatalog({
                   </div>
                 )}
                 {book.stock <= 0 ? (
-                  <span className="absolute left-2 top-2 rounded-full bg-red-700 px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-white shadow-md ring-2 ring-white">
+                  <span className="absolute left-2 top-2 rounded-full bg-na-editorial px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-white shadow-md ring-2 ring-white">
                     Agotado
                   </span>
                 ) : null}
@@ -408,19 +421,25 @@ export function EditorialCatalog({
                   {formatPrice(book.price, book.currency)}
                 </p>
                 <div
-                  className="mt-3"
+                  className="mt-3 flex items-center gap-2"
                   onClick={(e) => e.stopPropagation()}
                   onKeyDown={(e) => e.stopPropagation()}
                 >
                   <AddToCartButton
                     item={bookToCartItem(book)}
-                    compact
-                    className={`inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-na-editorial font-bold text-white transition hover:bg-na-editorialDark ${
-                      embedded
-                        ? "mt-2 px-2.5 py-1.5 text-[10px]"
-                        : "mt-3 px-3 py-2 text-xs"
-                    }`}
+                    iconOnly
+                    hideWhenUnavailable
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-na-editorial text-white transition hover:bg-na-editorialDark"
                   />
+                  <button
+                    type="button"
+                    onClick={() => void shareStoreBook(book)}
+                    aria-label={`Compartir ${book.title}`}
+                    title="Compartir"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
+                  >
+                    <Share2 className="h-4 w-4" aria-hidden />
+                  </button>
                 </div>
               </div>
             </article>
