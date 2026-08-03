@@ -26,7 +26,7 @@
       },
       {
         "id": "regalos",
-        "label": "Regalos",
+        "label": "Jornadas",
         "href": "/regalos"
       },
       {
@@ -738,7 +738,7 @@
       },
       {
         "id": "regalos",
-        "label": "Regalos",
+        "label": "Jornadas",
         "hash": "catalogo-regalos"
       }
     ],

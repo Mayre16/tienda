@@ -406,7 +406,7 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
   const showMemorion = activeFilter === "all" || activeFilter === "memorion";
 
   const generalWhatsapp = `${WHATSAPP_URL}?text=${encodeURIComponent(
-    "Hola, me interesa información sobre regalos y separadores de Editorial Logos.",
+    "Hola, me interesa información sobre Jornadas 2026 de Editorial Logos.",
   )}`;
 
   function selectFilter(id: string) {
@@ -419,9 +419,8 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
     <section id="regalos" className="scroll-mt-24">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <p className="max-w-3xl text-sm leading-relaxed text-na-muted">
-          Separadores, regalos filosóficos, libretas, camisetas, Editio y
-          Memorion en un solo catálogo. Use los filtros para explorar por
-          categoría.
+          Materiales y propuestas de las Jornadas. Use los filtros para explorar
+          por categoría (p. ej. Jornadas 2026).
         </p>
         {edit?.ready ? (
           <div className="flex flex-wrap gap-2">
@@ -445,7 +444,7 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
 
       <nav
         className="mt-6 flex flex-wrap gap-2"
-        aria-label="Filtrar regalos por categoría"
+        aria-label="Filtrar jornadas por categoría"
       >
         {filterPills.map((pill) => {
           const active = activeFilter === pill.id;
@@ -537,7 +536,7 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
           rel="noopener noreferrer"
           className="inline-flex rounded-full bg-na-editorial px-5 py-2.5 text-sm font-bold text-white transition hover:bg-na-editorialDark"
         >
-          Consultar todos los regalos por WhatsApp
+          Consultar Jornadas por WhatsApp
         </a>
       </div>
     </section>

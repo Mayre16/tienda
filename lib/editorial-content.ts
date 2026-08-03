@@ -12,7 +12,7 @@ export const EDITORIAL_HEADER_NAV: EditorialNavItem[] = [
   { id: "conoce", label: "Quiénes somos", href: "/conoce-nueva-acropolis" },
   { id: "libros", label: "Libros", href: "/libros" },
   { id: "revistas", label: "Revistas", href: "/revistas" },
-  { id: "regalos", label: "Regalos", href: "/regalos" },
+  { id: "regalos", label: "Jornadas", href: "/regalos" },
   { id: "donde-estamos", label: "Visítanos", href: "/donde-estamos" },
   {
     id: "sesion",

@@ -49,7 +49,7 @@ const FOOTER_TAGLINE =
 const SHOP_CATEGORIES: CmsEditorialShopCategory[] = [
   { id: "libros", label: "Libros", hash: "catalogo-impresos" },
   { id: "revistas", label: "Revistas", hash: "catalogo-revistas" },
-  { id: "regalos", label: "Regalos", hash: "catalogo-regalos" },
+  { id: "regalos", label: "Jornadas", hash: "catalogo-regalos" },
 ];
 
 export function codeToCmsNav(items: EditorialNavItem[]): CmsEditorialNavItem[] {

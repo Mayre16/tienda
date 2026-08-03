@@ -56,7 +56,7 @@ const EDITORIAL_FOOTER_TAGLINE_FALLBACK =
 const SHOP_CATEGORIES_FALLBACK = [
   { id: "libros", label: "Libros", hash: "catalogo-impresos" },
   { id: "revistas", label: "Revistas", hash: "catalogo-revistas" },
-  { id: "regalos", label: "Regalos", hash: "catalogo-regalos" },
+  { id: "regalos", label: "Jornadas", hash: "catalogo-regalos" },
 ];
 
 export function mergeEditorialHeaderNav(
@@ -68,9 +68,15 @@ export function mergeEditorialHeaderNav(
   const fbMap = new Map(fallback.map((item) => [item.id, item]));
   return items.map((item) => {
     const fb = fbMap.get(item.id);
+    const labelRaw = item.label ?? fb?.label ?? item.id;
+    // Tab público: Regalos → Jornadas (id interno se mantiene).
+    const label =
+      item.id === "regalos" && (labelRaw === "Regalos" || !item.label)
+        ? "Jornadas"
+        : labelRaw;
     return {
       id: item.id,
-      label: item.label ?? fb?.label ?? item.id,
+      label,
       href: item.href ?? fb?.href ?? "/",
       external: item.external ?? fb?.external,
     };
@@ -352,9 +358,14 @@ export function mergeEditorialShopCategories(
   const fbMap = new Map(SHOP_CATEGORIES_FALLBACK.map((item) => [item.id, item]));
   return items.map((item) => {
     const fb = fbMap.get(item.id);
+    const labelRaw = item.label ?? fb?.label ?? item.id;
+    const label =
+      item.id === "regalos" && (labelRaw === "Regalos" || !item.label)
+        ? "Jornadas"
+        : labelRaw;
     return {
       id: item.id,
-      label: item.label ?? fb?.label ?? item.id,
+      label,
       hash: item.hash ?? fb?.hash ?? item.id,
     };
   });

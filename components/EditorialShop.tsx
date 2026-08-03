@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
-import { BookOpen, Download, Gift, Newspaper } from "lucide-react";
+import { BookOpen, CalendarDays, Download, Newspaper } from "lucide-react";
 import { DigitalBooksSection } from "@/components/DigitalBooksSection";
 import { DIGITAL_BOOK_COUNT } from "@/lib/digital-books";
 import {
@@ -63,7 +63,7 @@ type LibrosFormat = "impresos" | "digitales";
 const MAIN_TABS: { id: MainCategory; label: string; hash: string }[] = [
   { id: "libros", label: "Libros", hash: "catalogo-impresos" },
   { id: "revistas", label: "Revistas", hash: "catalogo-revistas" },
-  { id: "regalos", label: "Regalos", hash: "catalogo-regalos" },
+  { id: "regalos", label: "Jornadas", hash: "catalogo-regalos" },
 ];
 
 const LIBROS_TABS: { id: LibrosFormat; label: string; hash: string }[] = [
@@ -163,7 +163,7 @@ export function EditorialShop({ section }: EditorialShopProps) {
               ? BookOpen
               : tab.id === "revistas"
                 ? Newspaper
-                : Gift;
+                : CalendarDays;
           return (
             <button
               key={tab.id}

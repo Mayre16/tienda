@@ -53,7 +53,23 @@ const REGALO_HASH_TO_FILTER: Record<string, string> = {
   memorion: "memorion",
   accesorios: "papeleria",
   articulos: "papeleria",
+  "jornadas-2026": "jornadas-2026",
+  jornadas: "jornadas-2026",
 };
+
+/** Slugs con página estática en /regalos/[filter] (GitHub Pages). */
+export const REGALO_FILTER_STATIC_SLUGS = [
+  "separadores",
+  "papeleria",
+  "libretas",
+  "camisetas",
+  "editio",
+  "memorion",
+  "accesorios",
+  "articulos",
+  "jornadas-2026",
+  "jornadas",
+] as const;
 
 export function normalizePathname(pathname: string): string {
   const p = pathname.replace(/\/$/, "");
