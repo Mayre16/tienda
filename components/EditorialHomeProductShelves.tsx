@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Share2 } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, Share2 } from "lucide-react";
 import {
   bookToCartItem,
   formatCartMoney,
@@ -205,7 +205,19 @@ function ShelfSection({
   onOpenRegalo: (item: RegaloItem) => void;
   onOpenBook: (book: StoreBook) => void;
 }) {
+  const scrollerRef = useRef<HTMLUListElement>(null);
+
   if (items.length === 0) return null;
+
+  function scrollByCards(direction: -1 | 1) {
+    const el = scrollerRef.current;
+    if (!el) return;
+    const card = el.querySelector("li");
+    const step = card
+      ? card.getBoundingClientRect().width + 12
+      : Math.min(el.clientWidth * 0.8, 220);
+    el.scrollBy({ left: direction * step * 2, behavior: "smooth" });
+  }
 
   return (
     <section
@@ -226,16 +238,39 @@ function ShelfSection({
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-na-muted">{lede}</p>
         </div>
-        <Link
-          href={href}
-          className="inline-flex items-center gap-1 text-sm font-bold text-na-editorialDark transition hover:gap-2"
-        >
-          {linkLabel}
-          <ArrowRight className="h-4 w-4" aria-hidden />
-        </Link>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
+            <button
+              type="button"
+              onClick={() => scrollByCards(-1)}
+              aria-label="Anterior"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
+            >
+              <ChevronLeft className="h-4 w-4" aria-hidden />
+            </button>
+            <button
+              type="button"
+              onClick={() => scrollByCards(1)}
+              aria-label="Siguiente"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
+            >
+              <ChevronRight className="h-4 w-4" aria-hidden />
+            </button>
+          </div>
+          <Link
+            href={href}
+            className="inline-flex items-center gap-1 text-sm font-bold text-na-editorialDark transition hover:gap-2"
+          >
+            {linkLabel}
+            <ArrowRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </div>
       </div>
 
-      <ul className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:gap-4">
+      <ul
+        ref={scrollerRef}
+        className="-mx-4 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth sm:-mx-6 sm:gap-4 sm:px-6 [scrollbar-width:thin]"
+      >
         {items.map((entry) => (
           <li
             key={
@@ -243,6 +278,7 @@ function ShelfSection({
                 ? `book-${entry.book.id}`
                 : `regalo-${entry.item.id}`
             }
+            className="w-[42%] max-w-[11.5rem] shrink-0 snap-start sm:w-[30%] sm:max-w-[13rem] md:w-[22%] md:max-w-[14rem]"
           >
             <ShelfCard
               entry={entry}
