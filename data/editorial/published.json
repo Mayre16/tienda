@@ -310,6 +310,61 @@
         "currency": "DOP",
         "priceNote": "RD$ 650 · consultar tallas",
         "sample": true
+      },
+      {
+        "id": "jornada-iman-nevera",
+        "category": "jornadas-2026",
+        "title": "Imán de nevera · Jornadas 2026",
+        "description": "Imán souvenir para la nevera. Ejemplo editable: sustituye la foto y el precio en el editor.",
+        "imageUrl": "/img/regalos/jornada-iman.svg",
+        "price": 200,
+        "currency": "DOP",
+        "priceNote": "RD$ 200 · ejemplo",
+        "sample": true
+      },
+      {
+        "id": "jornada-llavero",
+        "category": "jornadas-2026",
+        "title": "Llavero · Jornadas 2026",
+        "description": "Llavero de recuerdo. Ideal para llevarse un símbolo de las Jornadas. Ejemplo editable.",
+        "imageUrl": "/img/regalos/jornada-llavero.svg",
+        "price": 250,
+        "currency": "DOP",
+        "priceNote": "RD$ 250 · ejemplo",
+        "sample": true
+      },
+      {
+        "id": "jornada-pin",
+        "category": "jornadas-2026",
+        "title": "Pin · Jornadas 2026",
+        "description": "Pin / broche pequeño para solapa o mochila. Ejemplo editable: cambia imagen y precio.",
+        "imageUrl": "/img/regalos/jornada-pin.svg",
+        "price": 180,
+        "currency": "DOP",
+        "priceNote": "RD$ 180 · ejemplo",
+        "sample": true
+      },
+      {
+        "id": "jornada-ceramica",
+        "category": "jornadas-2026",
+        "title": "Pieza de cerámica · Jornadas 2026",
+        "description": "Pequeña pieza de cerámica artesanal (miniatura / recuerdo). Ejemplo editable.",
+        "imageUrl": "/img/regalos/jornada-ceramica.svg",
+        "price": 450,
+        "currency": "DOP",
+        "priceNote": "RD$ 450 · ejemplo",
+        "sample": true
+      },
+      {
+        "id": "jornada-postal",
+        "category": "jornadas-2026",
+        "title": "Postal · Jornadas 2026",
+        "description": "Postal de recuerdo para enviar o coleccionar. Ejemplo editable.",
+        "imageUrl": "/img/regalos/jornada-postal.svg",
+        "price": 100,
+        "currency": "DOP",
+        "priceNote": "RD$ 100 · ejemplo",
+        "sample": true
       }
     ],
     "editorialMemorion": {
@@ -345,6 +400,11 @@
         "id": "editio",
         "label": "Editio",
         "description": "Artículos y ediciones de la línea Editio — Editorial Logos."
+      },
+      {
+        "id": "jornadas-2026",
+        "label": "Jornadas 2026",
+        "description": "Recuerdos de viaje: imanes, llaveros, pins y pequeñas piezas de cerámica para llevarse un pedazo de las Jornadas."
       }
     ],
     "editorialDigitalBooks": [

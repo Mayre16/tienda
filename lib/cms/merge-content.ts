@@ -283,16 +283,24 @@ export function mergeEditorialRegaloCategories(
   cms: CmsDocument | null | undefined,
 ) {
   const items = cms?.sections.editorialRegaloCategories;
-  if (!items?.length) return fallback;
   const fbMap = new Map(fallback.map((item) => [item.id, item]));
-  return items.map((item) => {
-    const fb = fbMap.get(item.id);
-    return {
-      id: item.id,
-      label: item.label ?? fb?.label ?? item.id,
-      description: item.description ?? fb?.description ?? "",
-    };
-  });
+  const merged = items?.length
+    ? items.map((item) => {
+        const fb = fbMap.get(item.id);
+        return {
+          id: item.id,
+          label: item.label ?? fb?.label ?? item.id,
+          description: item.description ?? fb?.description ?? "",
+        };
+      })
+    : fallback.map((item) => ({ ...item }));
+
+  // Asegurar categoría Jornadas 2026 aunque el CMS aún no la tenga.
+  if (!merged.some((c) => c.id === "jornadas-2026")) {
+    const j = fbMap.get("jornadas-2026");
+    if (j) merged.push({ ...j });
+  }
+  return merged;
 }
 
 function mergeRegaloAssetUrl(
@@ -347,7 +355,12 @@ export function mergeEditorialRegalos(
   const items = cms?.sections.editorialRegalos;
   if (!items?.length) return fallback;
   const fbMap = new Map(fallback.map((item) => [item.id, item]));
-  return items.map((item) => mergeRegaloItem(fbMap.get(item.id), item));
+  const merged = items.map((item) => mergeRegaloItem(fbMap.get(item.id), item));
+  const ids = new Set(merged.map((item) => item.id));
+  for (const sample of fallback.filter((r) => r.category === "jornadas-2026")) {
+    if (!ids.has(sample.id)) merged.push(sample);
+  }
+  return merged;
 }
 
 export function mergeEditorialShopCategories(
