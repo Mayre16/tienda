@@ -396,24 +396,57 @@ export function mergeEditorialMemorion(
   return { ...MEMORION_FALLBACK, ...cms?.sections.editorialMemorion };
 }
 
+function normalizePrintedTitleKey(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
+    .replace(/[¿?¡!.,;:()«»"'`]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export function mergeEditorialPrintedBooks(
   cms: CmsDocument | null | undefined,
 ): CmsEditorialPrintedBook[] {
   // Catálogo local (portadas en tienda) + overrides del CMS. No depende de Biblioteca.
   const cmsBooks = cms?.sections.editorialPrintedBooks ?? [];
   const byId = new Map<string, CmsEditorialPrintedBook>();
+  const titleToId = new Map<string, string>();
+
   for (const book of PRINTED_BOOKS_SEED) {
     byId.set(book.id, { ...book });
+    const key = normalizePrintedTitleKey(book.title);
+    if (key) titleToId.set(key, book.id);
   }
+
   for (const book of cmsBooks) {
     if (!book?.id?.trim()) continue;
+    const titleKey = normalizePrintedTitleKey(book.title ?? "");
+    const seedId = titleKey ? titleToId.get(titleKey) : undefined;
+    const targetId =
+      byId.has(book.id) || !seedId ? book.id : seedId;
+
     if (book.hidden) {
       byId.delete(book.id);
+      if (seedId) byId.delete(seedId);
       continue;
     }
-    const prev = byId.get(book.id);
-    byId.set(book.id, prev ? { ...prev, ...book } : { ...book });
+
+    const prev = byId.get(targetId);
+    // Conservar portada local del seed si el CMS no trae cover usable.
+    const coverUrl =
+      (book.coverUrl && book.coverUrl.trim()) || prev?.coverUrl || "";
+    const merged: CmsEditorialPrintedBook = prev
+      ? { ...prev, ...book, id: targetId, coverUrl }
+      : { ...book, coverUrl };
+    byId.set(targetId, merged);
+    if (targetId !== book.id) {
+      byId.delete(book.id);
+    }
+    if (titleKey) titleToId.set(titleKey, targetId);
   }
+
   return [...byId.values()].filter((b) => !b.hidden);
 }
 

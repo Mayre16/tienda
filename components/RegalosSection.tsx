@@ -16,7 +16,7 @@ import { regaloToCartItem, formatCartMoney } from "@/lib/cart";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
 import { RegaloDetailDialog } from "@/components/RegaloDetailDialog";
 import {
-  navigateEditorialHash,
+  navigateEditorialSection,
   regaloFilterToHash,
 } from "@/lib/editorial-navigation";
 import { WHATSAPP_URL } from "@/lib/site-config";
@@ -411,7 +411,8 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
 
   function selectFilter(id: string) {
     setActiveFilter(id);
-    navigateEditorialHash(regaloFilterToHash(id), { scroll: false });
+    // Ruta limpia /regalos/{filtro} (páginas estáticas en app/regalos/[filter]).
+    navigateEditorialSection(regaloFilterToHash(id), { scroll: false });
   }
 
   return (

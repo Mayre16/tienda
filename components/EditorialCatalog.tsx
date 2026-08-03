@@ -5,7 +5,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Search, X } from "lucide-react";
 import {
   type StoreBook,
-  buildStoreWhatsAppUrl,
   formatPrice,
   resolveStoreBookCover,
 } from "@/lib/bookstore";
@@ -19,7 +18,6 @@ import {
 } from "@/lib/cms/hooks";
 import { EditorialEditPencil } from "@/components/cms/CmsEditFields";
 import { useEditorialCmsEdit } from "@/components/cms/EditorialCmsEditContext";
-import { STORE_WHATSAPP_NUMBER } from "@/lib/site-config";
 
 function BookDetail({
   book,
@@ -29,7 +27,6 @@ function BookDetail({
   onClose: () => void;
 }) {
   const cover = resolveStoreBookCover(book);
-  const whatsapp = buildStoreWhatsAppUrl(book, STORE_WHATSAPP_NUMBER);
 
   return (
     <div className="relative rounded-2xl border border-na-editorial/15 bg-white p-6 shadow-na-card sm:p-8">
@@ -63,10 +60,14 @@ function BookDetail({
           <p className="mt-3 text-lg font-bold text-na-editorialDark">
             {formatPrice(book.price, book.currency)}
           </p>
-          <p className="mt-1 text-sm text-na-muted">
+          <p
+            className={`mt-1 text-sm font-semibold ${
+              book.stock > 0 ? "text-na-muted" : "text-red-700"
+            }`}
+          >
             {book.stock > 0
               ? `${book.stock} en stock`
-              : "Agotado — consultar disponibilidad"}
+              : "Agotado — consultar por WhatsApp"}
           </p>
           {book.publisher ? (
             <p className="mt-3 text-sm text-na-muted">
@@ -91,15 +92,7 @@ function BookDetail({
               {book.summary}
             </p>
           ) : null}
-          <a
-            href={whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex rounded-full border border-na-heket/30 bg-white px-5 py-2.5 text-sm font-bold text-na-heket transition hover:bg-na-heket hover:text-white"
-          >
-            Consultar por WhatsApp
-          </a>
-          <div className="mt-3">
+          <div className="mt-4">
             <AddToCartButton item={bookToCartItem(book)} />
           </div>
         </div>
@@ -167,8 +160,8 @@ export function EditorialCatalog({
           </h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-na-muted sm:text-base">
             Publicaciones de Editorial Nueva Acrópolis y autores de la escuela.
-            Precio y disponibilidad se gestionan en el editor. Para pedidos, use
-            WhatsApp en cada título.
+            Precio y stock se gestionan en el editor (CSV). Para consultas use el
+            botón flotante de WhatsApp.
           </p>
         </>
       ) : null}
@@ -385,7 +378,7 @@ export function EditorialCatalog({
                   </div>
                 )}
                 {book.stock <= 0 ? (
-                  <span className="absolute left-2 top-2 rounded-full bg-neutral-600 px-2 py-0.5 text-[10px] font-bold uppercase text-white">
+                  <span className="absolute left-2 top-2 rounded-full bg-red-700 px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-white shadow-md ring-2 ring-white">
                     Agotado
                   </span>
                 ) : null}

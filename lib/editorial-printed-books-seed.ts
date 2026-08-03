@@ -46,7 +46,7 @@ function titleFromSlug(slug: string): string {
 
 /**
  * Catálogo impreso local (portadas en tienda).
- * Precio/stock se editan en el CMS; por defecto stock 1 y precio a consultar.
+ * Precio/stock vienen del CMS/CSV; por defecto agotado hasta importar cantidad.
  */
 const AUTHORS: Record<string, string> = {
   "ankor-ultimo-principe": "Jorge Ángel Livraga",
@@ -66,7 +66,7 @@ export const PRINTED_BOOKS_SEED: CmsEditorialPrintedBook[] = SLUGS.map(
     summary: "",
     price: null,
     currency: "DOP",
-    stock: 1,
+    stock: 0,
     publisher: "Editorial Nueva Acrópolis",
     area_tema: "",
     priceNote: "",

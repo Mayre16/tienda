@@ -6,6 +6,7 @@ import "./globals.css";
 import { EditorialNavigationProvider } from "@/components/EditorialNavigationProvider";
 import { EditorialSiteHeader } from "@/components/EditorialSiteHeader";
 import { EditorialFooter } from "@/components/EditorialFooter";
+import { EditorialWhatsAppFloat } from "@/components/EditorialWhatsAppFloat";
 import { EditorialCartProvider } from "@/components/cart/EditorialCartProvider";
 import { CmsEditModeBootstrap } from "@/components/cms/CmsEditModeBootstrap";
 import { CmsProvider } from "@/lib/cms/provider";
@@ -81,6 +82,7 @@ export default function RootLayout({
                   <EditorialPageMedia />
                 </main>
                 <EditorialFooter />
+                <EditorialWhatsAppFloat />
               </EditorialNavigationProvider>
             </EditorialCartProvider>
           </EditorialCmsEditProvider>

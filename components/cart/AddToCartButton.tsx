@@ -18,10 +18,16 @@ export function AddToCartButton({
   const { addItem } = useCartActions();
 
   if (!item) {
+    const fullWidth = className.includes("w-full");
     return (
-      <p className={`text-xs text-na-muted ${className}`.trim()}>
-        Consulte disponibilidad por WhatsApp.
-      </p>
+      <span
+        className={`inline-flex items-center justify-center rounded-full bg-red-700 font-black uppercase tracking-wide text-white shadow-sm ring-1 ring-red-900/20 ${
+          fullWidth ? "w-full" : ""
+        } ${compact ? "px-3 py-1.5 text-[10px]" : "px-4 py-2 text-sm"}`}
+        aria-label="Agotado"
+      >
+        Agotado
+      </span>
     );
   }
 

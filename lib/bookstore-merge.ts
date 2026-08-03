@@ -7,17 +7,9 @@ import {
 } from "@/lib/bookstore";
 import type { CmsEditorialPrintedBook } from "@/lib/cms/types";
 
-/**
- * Checkout Azul/Harmonía solo si hay ID real de Biblioteca.
- * Libros solo-CMS se venden por WhatsApp (precio/stock igual se muestran).
- */
+/** Carrito: precio y stock reales del CMS/CSV (sin depender de Biblioteca). */
 export function isBookCheckoutEligible(book: StoreBook): boolean {
-  return (
-    book.id > 0 &&
-    book.price != null &&
-    book.price > 0 &&
-    book.stock > 0
-  );
+  return book.price != null && book.price > 0 && book.stock > 0;
 }
 
 /** Presentación y precio/stock desde CMS (la tienda es independiente de Biblioteca). */
