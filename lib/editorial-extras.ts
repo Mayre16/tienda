@@ -46,6 +46,12 @@ export const REGALO_CATEGORIES: {
   description: string;
 }[] = [
   {
+    id: "jornadas-2026",
+    label: "Jornadas 2026",
+    description:
+      "Recuerdos de viaje: imanes, llaveros, pins y pequeñas piezas de cerámica para llevarse un pedazo de las Jornadas.",
+  },
+  {
     id: "separadores",
     label: "Separadores de libros",
     description:
@@ -74,12 +80,6 @@ export const REGALO_CATEGORIES: {
     label: "Editio",
     description:
       "Artículos y ediciones de la línea Editio — Editorial Logos.",
-  },
-  {
-    id: "jornadas-2026",
-    label: "Jornadas 2026",
-    description:
-      "Recuerdos de viaje: imanes, llaveros, pins y pequeñas piezas de cerámica para llevarse un pedazo de las Jornadas.",
   },
 ];
 
@@ -317,7 +317,7 @@ export const REGALOS: RegaloItem[] = [
     title: "Imán de nevera · Jornadas 2026",
     description:
       "Imán souvenir para la nevera. Ejemplo editable: sustituye la foto y el precio en el editor.",
-    imageUrl: "/img/regalos/jornada-iman.svg",
+    imageUrl: "/img/regalos/jornada-iman.webp",
     price: 200,
     currency: "DOP",
     priceNote: "RD$ 200 · ejemplo",
@@ -329,7 +329,7 @@ export const REGALOS: RegaloItem[] = [
     title: "Llavero · Jornadas 2026",
     description:
       "Llavero de recuerdo. Ideal para llevarse un símbolo de las Jornadas. Ejemplo editable.",
-    imageUrl: "/img/regalos/jornada-llavero.svg",
+    imageUrl: "/img/regalos/jornada-llavero.webp",
     price: 250,
     currency: "DOP",
     priceNote: "RD$ 250 · ejemplo",
@@ -341,7 +341,7 @@ export const REGALOS: RegaloItem[] = [
     title: "Pin · Jornadas 2026",
     description:
       "Pin / broche pequeño para solapa o mochila. Ejemplo editable: cambia imagen y precio.",
-    imageUrl: "/img/regalos/jornada-pin.svg",
+    imageUrl: "/img/regalos/jornada-pin.webp",
     price: 180,
     currency: "DOP",
     priceNote: "RD$ 180 · ejemplo",
@@ -353,7 +353,7 @@ export const REGALOS: RegaloItem[] = [
     title: "Pieza de cerámica · Jornadas 2026",
     description:
       "Pequeña pieza de cerámica artesanal (miniatura / recuerdo). Ejemplo editable.",
-    imageUrl: "/img/regalos/jornada-ceramica.svg",
+    imageUrl: "/img/regalos/jornada-ceramica.webp",
     price: 450,
     currency: "DOP",
     priceNote: "RD$ 450 · ejemplo",
@@ -365,7 +365,7 @@ export const REGALOS: RegaloItem[] = [
     title: "Postal · Jornadas 2026",
     description:
       "Postal de recuerdo para enviar o coleccionar. Ejemplo editable.",
-    imageUrl: "/img/regalos/jornada-postal.svg",
+    imageUrl: "/img/regalos/jornada-postal.webp",
     price: 100,
     currency: "DOP",
     priceNote: "RD$ 100 · ejemplo",

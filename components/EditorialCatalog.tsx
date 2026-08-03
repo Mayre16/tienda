@@ -421,25 +421,38 @@ export function EditorialCatalog({
                   {formatPrice(book.price, book.currency)}
                 </p>
                 <div
-                  className="mt-3 flex items-center gap-2"
+                  className="mt-3 flex items-center justify-between gap-2"
                   onClick={(e) => e.stopPropagation()}
                   onKeyDown={(e) => e.stopPropagation()}
                 >
-                  <AddToCartButton
-                    item={bookToCartItem(book)}
-                    iconOnly
-                    hideWhenUnavailable
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-na-editorial text-white transition hover:bg-na-editorialDark"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => void shareStoreBook(book)}
-                    aria-label={`Compartir ${book.title}`}
-                    title="Compartir"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
+                  <p
+                    className={`min-w-0 font-semibold ${
+                      book.stock > 0
+                        ? "text-na-muted"
+                        : "text-na-editorial"
+                    } ${embedded ? "text-[10px]" : "text-xs"}`}
                   >
-                    <Share2 className="h-4 w-4" aria-hidden />
-                  </button>
+                    {book.stock > 0
+                      ? `Disponible: ${book.stock}`
+                      : "Agotado"}
+                  </p>
+                  <div className="flex shrink-0 items-center gap-1.5">
+                    <AddToCartButton
+                      item={bookToCartItem(book)}
+                      iconOnly
+                      hideWhenUnavailable
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full bg-na-editorial text-white transition hover:bg-na-editorialDark"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => void shareStoreBook(book)}
+                      aria-label={`Compartir ${book.title}`}
+                      title="Compartir"
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
+                    >
+                      <Share2 className="h-4 w-4" aria-hidden />
+                    </button>
+                  </div>
                 </div>
               </div>
             </article>

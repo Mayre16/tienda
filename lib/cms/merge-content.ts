@@ -295,10 +295,14 @@ export function mergeEditorialRegaloCategories(
       })
     : fallback.map((item) => ({ ...item }));
 
-  // Asegurar categoría Jornadas 2026 aunque el CMS aún no la tenga.
-  if (!merged.some((c) => c.id === "jornadas-2026")) {
-    const j = fbMap.get("jornadas-2026");
-    if (j) merged.push({ ...j });
+  // Jornadas 2026 siempre primero en el catálogo.
+  const jFallback = fbMap.get("jornadas-2026");
+  const jIdx = merged.findIndex((c) => c.id === "jornadas-2026");
+  if (jIdx > 0) {
+    const [j] = merged.splice(jIdx, 1);
+    merged.unshift(j);
+  } else if (jIdx < 0 && jFallback) {
+    merged.unshift({ ...jFallback });
   }
   return merged;
 }
@@ -307,7 +311,13 @@ function mergeRegaloAssetUrl(
   cmsUrl: string | undefined,
   fallbackUrl: string | undefined,
 ): string {
-  const raw = cmsUrl?.trim() || fallbackUrl?.trim() || "";
+  const cms = cmsUrl?.trim() || "";
+  const fb = fallbackUrl?.trim() || "";
+  // Preferir WebP local si el CMS aún apunta al SVG placeholder.
+  if (/\.svg$/i.test(cms) && /\.webp$/i.test(fb)) {
+    return preferWebpAssetUrl(fb);
+  }
+  const raw = cms || fb;
   if (!raw) return "";
   return preferWebpAssetUrl(resolveCmsMediaUrl(raw) ?? raw);
 }
