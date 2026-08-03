@@ -215,6 +215,7 @@ function mergeEditorialSedeItem(
     address: fb?.address ?? cms?.address ?? "",
     reference: fb?.reference ?? cms?.reference,
     mapsQuery: fb?.mapsQuery ?? cms?.mapsQuery ?? "",
+    mapsEmbedQuery: fb?.mapsEmbedQuery,
     // Horario / sala / nota: CMS Editorial.
     hours: cms?.hours ?? fb?.hours ?? EDITORIAL_STORE_HOURS,
     sala: cms?.sala ?? fb?.sala,

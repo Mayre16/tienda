@@ -32,21 +32,32 @@ export const EDITORIAL_STORE_PHOTO = {
   alt: "Librería Editorial Logos — libros, separadores, camisetas, bolsas pintadas y recuerdos",
 } as const;
 
+/** Búsqueda estable para el iframe (los goo.gl no se pueden embeber ni geocodifican bien). */
+const NACO_MAP_EMBED_QUERY =
+  "Calle Cub Scouts No. 6, Ensanche Naco, Santo Domingo, República Dominicana";
+
 /**
  * Copia específica de la librería por sede (sobrescribe la nota genérica del
  * sitio principal). La clave es el id de la sede en el sitio principal.
  */
 const SEDE_OVERRIDES: Record<
   string,
-  { sala?: string; note?: string; hours?: string }
+  { sala?: string; note?: string; hours?: string; mapsEmbedQuery?: string }
 > = {
   "sede-naco": {
     sala: "Librería Editorial Logos",
     note: "Nuestra librería principal: libros impresos, regalos filosóficos y publicaciones de la editorial.",
+    mapsEmbedQuery: NACO_MAP_EMBED_QUERY,
   },
   "sede-los-prados": {
     sala: "Punto de consulta editorial",
     note: "Consulta disponibilidad y retiro de pedidos en nuestra sede de Los Prados.",
+    mapsEmbedQuery:
+      "Eugenio Deschamps No. 61, Los Prados, Santo Domingo, República Dominicana",
+  },
+  "sede-santiago": {
+    mapsEmbedQuery:
+      "Calle Penetración 10, Jardines del Este, Santiago de los Caballeros, República Dominicana",
   },
 };
 
@@ -64,6 +75,7 @@ const SYNCED_SEDES: EditorialSede[] = PRINCIPAL_SEDES.map((s) => {
     address: s.address,
     reference: s.reference,
     mapsQuery: s.mapsQuery,
+    mapsEmbedQuery: override.mapsEmbedQuery,
     hours: override.hours ?? EDITORIAL_STORE_HOURS,
     sala: override.sala,
     note: override.note ?? DEFAULT_SEDE_NOTE,
@@ -144,10 +156,15 @@ export function editorialMapsEmbedFallback(sede: {
   zone?: string;
   city?: string;
 }): string {
-  return [sede.address, sede.zone, sede.city, "República Dominicana"]
+  const address = (sede.address ?? "")
+    .trim()
+    .replace(/^C\.\s+/i, "Calle ")
+    .replace(/^Av\.\s+/i, "Avenida ");
+  // Evitar duplicar ciudad si ya viene en la dirección.
+  const parts = [address, sede.zone, sede.city, "República Dominicana"]
     .map((p) => p?.trim())
-    .filter(Boolean)
-    .join(", ");
+    .filter(Boolean) as string[];
+  return [...new Set(parts)].join(", ");
 }
 
 export function editorialMapsEmbedUrl(
