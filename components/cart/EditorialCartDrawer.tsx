@@ -117,7 +117,7 @@ function EditorialCartDrawerPanel() {
         result.dev
           ? result.message ||
               "Pedido guardado en modo desarrollo (SMTP no configurado)."
-          : "Solicitud enviada. Recibirá una copia por correo; Civis (Leslie) le enviará el enlace de pago para confirmar la venta.",
+          : "Solicitud recibida. Recibirá una copia al correo y alguien se pondrá en contacto para confirmar.",
       );
       resetTurnstileWidget();
       setTurnstileToken("");
