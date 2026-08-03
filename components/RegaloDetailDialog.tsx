@@ -2,17 +2,17 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { MessageCircle, X } from "lucide-react";
+import { Share2, X } from "lucide-react";
 import type { RegaloItem } from "@/lib/editorial-extras";
 import { regaloToCartItem, formatCartMoney } from "@/lib/cart";
 import { AddToCartButton } from "@/components/cart/AddToCartButton";
+import { shareRegaloItem } from "@/lib/regalo-share";
 
 type RegaloDetailDialogProps = {
   item: RegaloItem;
   open: boolean;
   onClose: () => void;
   resolveImage: (url: string) => string;
-  whatsAppHref: string;
 };
 
 function detailImageLayout(item: RegaloItem) {
@@ -75,7 +75,6 @@ export function RegaloDetailDialog({
   open,
   onClose,
   resolveImage,
-  whatsAppHref,
 }: RegaloDetailDialogProps) {
   const [showBack, setShowBack] = useState(false);
   const [imageFailed, setImageFailed] = useState(false);
@@ -254,15 +253,14 @@ export function RegaloDetailDialog({
                   item={regaloToCartItem(item)}
                   className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-na-editorial px-5 py-2.5 text-sm font-bold text-white transition hover:bg-na-editorialDark sm:min-w-[10rem]"
                 />
-                <a
-                  href={whatsAppHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-na-heket/30 bg-na-heket/5 px-5 py-2.5 text-sm font-bold text-na-heket transition hover:bg-na-heket hover:text-white sm:min-w-[10rem]"
+                <button
+                  type="button"
+                  onClick={() => void shareRegaloItem(item)}
+                  className="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full border border-na-editorial/25 bg-white px-5 py-2.5 text-sm font-bold text-na-editorial transition hover:bg-na-editorial/5 sm:min-w-[10rem]"
                 >
-                  <MessageCircle className="h-4 w-4 shrink-0" aria-hidden />
-                  WhatsApp
-                </a>
+                  <Share2 className="h-4 w-4 shrink-0" aria-hidden />
+                  Compartir
+                </button>
               </div>
             </div>
           </div>

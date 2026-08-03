@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import { MessageCircle } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { preferWebpAssetUrl } from "@/lib/media-assets";
 import { resolveCmsMediaUrl } from "@/lib/cms/api-client";
 import { assetUrl } from "@/lib/asset-url";
@@ -19,7 +19,7 @@ import {
   navigateEditorialSection,
   regaloFilterToHash,
 } from "@/lib/editorial-navigation";
-import { WHATSAPP_URL } from "@/lib/site-config";
+import { shareRegaloItem } from "@/lib/regalo-share";
 
 function resolveRegaloImage(url: string): string {
   if (!url) return url;
@@ -28,17 +28,6 @@ function resolveRegaloImage(url: string): string {
     return preferWebpAssetUrl(resolved);
   }
   return preferWebpAssetUrl(assetUrl(resolved));
-}
-
-function buildRegaloWhatsApp(item: RegaloItem): string {
-  const lines = [
-    "Hola, me interesa este artículo de Editorial Logos:",
-    "",
-    item.title,
-    item.quote ? `"${item.quote}"` : "",
-    item.author ? `— ${item.author}` : "",
-  ].filter(Boolean);
-  return `${WHATSAPP_URL}?text=${encodeURIComponent(lines.join("\n"))}`;
 }
 
 function cmsRegaloToItem(item: CmsEditorialRegalo): RegaloItem {
@@ -220,7 +209,6 @@ function RegaloCard({
           open={open}
           onClose={() => setOpen(false)}
           resolveImage={resolveRegaloImage}
-          whatsAppHref={buildRegaloWhatsApp(item)}
         />
       </>
     );
@@ -276,16 +264,17 @@ function RegaloCard({
               item={regaloToCartItem(item)}
               className="inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-na-editorial px-3 py-1.5 text-xs font-bold text-white transition hover:bg-na-editorialDark"
             />
-            <a
-              href={buildRegaloWhatsApp(item)}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-na-heket/30 bg-na-heket/5 px-3 py-1.5 text-xs font-bold text-na-heket transition hover:bg-na-heket hover:text-white"
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                void shareRegaloItem(item);
+              }}
+              className="inline-flex w-full items-center justify-center gap-1.5 rounded-full border border-na-editorial/25 bg-white px-3 py-1.5 text-xs font-bold text-na-editorial transition hover:bg-na-editorial/5"
             >
-              <MessageCircle className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              Consultar por WhatsApp
-            </a>
+              <Share2 className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              Compartir
+            </button>
           </div>
         </div>
       </article>
@@ -294,7 +283,6 @@ function RegaloCard({
         open={open}
         onClose={() => setOpen(false)}
         resolveImage={resolveRegaloImage}
-        whatsAppHref={buildRegaloWhatsApp(item)}
       />
     </>
   );
@@ -350,15 +338,14 @@ function MemorionBlock({
           >
             Ver detalle →
           </button>
-          <a
-            href={buildRegaloWhatsApp(item)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-na-editorial px-4 py-2 text-sm font-bold text-white transition hover:bg-na-editorialDark"
+          <button
+            type="button"
+            onClick={() => void shareRegaloItem(item)}
+            className="mt-4 inline-flex w-fit items-center gap-1.5 rounded-full border border-na-editorial/25 bg-white px-4 py-2 text-sm font-bold text-na-editorial transition hover:bg-na-editorial/5"
           >
-            <MessageCircle className="h-4 w-4" aria-hidden />
-            Consultar Memorion
-          </a>
+            <Share2 className="h-4 w-4" aria-hidden />
+            Compartir
+          </button>
         </div>
       </article>
       <RegaloDetailDialog
@@ -366,7 +353,6 @@ function MemorionBlock({
         open={open}
         onClose={() => setOpen(false)}
         resolveImage={resolveRegaloImage}
-        whatsAppHref={buildRegaloWhatsApp(item)}
       />
     </>
   );
@@ -404,10 +390,6 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
   });
 
   const showMemorion = activeFilter === "all" || activeFilter === "memorion";
-
-  const generalWhatsapp = `${WHATSAPP_URL}?text=${encodeURIComponent(
-    "Hola, me interesa información sobre Jornadas 2026 de Editorial Logos.",
-  )}`;
 
   function selectFilter(id: string) {
     setActiveFilter(id);
@@ -529,16 +511,6 @@ export function RegalosSection({ initialFilter = "all" }: RegalosSectionProps) {
         </div>
       ) : null}
 
-      <div className="mt-8">
-        <a
-          href={generalWhatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex rounded-full bg-na-editorial px-5 py-2.5 text-sm font-bold text-white transition hover:bg-na-editorialDark"
-        >
-          Consultar Jornadas por WhatsApp
-        </a>
-      </div>
     </section>
   );
 }
