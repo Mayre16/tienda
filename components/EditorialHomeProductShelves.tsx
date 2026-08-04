@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -206,8 +206,7 @@ function ShelfSection({
   onOpenBook: (book: StoreBook) => void;
 }) {
   const scrollerRef = useRef<HTMLUListElement>(null);
-
-  if (items.length === 0) return null;
+  const [paused, setPaused] = useState(false);
 
   function scrollByCards(direction: -1 | 1) {
     const el = scrollerRef.current;
@@ -216,14 +215,63 @@ function ShelfSection({
     const step = card
       ? card.getBoundingClientRect().width + 12
       : Math.min(el.clientWidth * 0.8, 220);
-    el.scrollBy({ left: direction * step * 2, behavior: "smooth" });
+    const delta = direction * step * 2;
+    const maxScroll = el.scrollWidth - el.clientWidth;
+    if (maxScroll <= 4) return;
+
+    const next = el.scrollLeft + delta;
+    if (direction > 0 && next >= maxScroll - 2) {
+      el.scrollTo({ left: 0, behavior: "smooth" });
+      return;
+    }
+    if (direction < 0 && next <= 2) {
+      el.scrollTo({ left: maxScroll, behavior: "smooth" });
+      return;
+    }
+    el.scrollBy({ left: delta, behavior: "smooth" });
   }
+
+  useEffect(() => {
+    if (items.length <= 2 || paused) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const t = window.setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el) return;
+      const card = el.querySelector("li");
+      const step = card
+        ? card.getBoundingClientRect().width + 12
+        : Math.min(el.clientWidth * 0.8, 220);
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (maxScroll <= 4) return;
+      const next = el.scrollLeft + step * 2;
+      if (next >= maxScroll - 2) {
+        el.scrollTo({ left: 0, behavior: "smooth" });
+        return;
+      }
+      el.scrollBy({ left: step * 2, behavior: "smooth" });
+    }, 4200);
+
+    return () => window.clearInterval(t);
+  }, [items.length, paused]);
+
+  if (items.length === 0) return null;
 
   return (
     <section
       id={id}
       className="scroll-mt-[var(--editorial-header-offset,7rem)]"
       aria-labelledby={`${id}-title`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+          setPaused(false);
+        }
+      }}
     >
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div className="min-w-0 max-w-2xl">
@@ -269,7 +317,7 @@ function ShelfSection({
 
       <ul
         ref={scrollerRef}
-        className="-mx-4 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth sm:-mx-6 sm:gap-4 sm:px-6 [scrollbar-width:thin]"
+        className="-mx-4 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth sm:-mx-6 sm:gap-4 sm:px-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((entry) => (
           <li
