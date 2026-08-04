@@ -208,14 +208,15 @@ function ShelfSection({
   const scrollerRef = useRef<HTMLUListElement>(null);
   const [paused, setPaused] = useState(false);
 
-  function scrollByCards(direction: -1 | 1) {
+  function pageStep(el: HTMLElement) {
+    // Avanza una “página” completa (las tarjetas visibles), sin dejar una a medias.
+    return Math.max(el.clientWidth * 0.92, 1);
+  }
+
+  function scrollByPage(direction: -1 | 1) {
     const el = scrollerRef.current;
     if (!el) return;
-    const card = el.querySelector("li");
-    const step = card
-      ? card.getBoundingClientRect().width + 12
-      : Math.min(el.clientWidth * 0.8, 220);
-    const delta = direction * step * 2;
+    const delta = direction * pageStep(el);
     const maxScroll = el.scrollWidth - el.clientWidth;
     if (maxScroll <= 4) return;
 
@@ -232,7 +233,7 @@ function ShelfSection({
   }
 
   useEffect(() => {
-    if (items.length <= 2 || paused) return;
+    if (items.length <= 4 || paused) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       return;
     }
@@ -240,18 +241,15 @@ function ShelfSection({
     const t = window.setInterval(() => {
       const el = scrollerRef.current;
       if (!el) return;
-      const card = el.querySelector("li");
-      const step = card
-        ? card.getBoundingClientRect().width + 12
-        : Math.min(el.clientWidth * 0.8, 220);
+      const step = Math.max(el.clientWidth * 0.92, 1);
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (maxScroll <= 4) return;
-      const next = el.scrollLeft + step * 2;
+      const next = el.scrollLeft + step;
       if (next >= maxScroll - 2) {
         el.scrollTo({ left: 0, behavior: "smooth" });
         return;
       }
-      el.scrollBy({ left: step * 2, behavior: "smooth" });
+      el.scrollBy({ left: step, behavior: "smooth" });
     }, 4200);
 
     return () => window.clearInterval(t);
@@ -290,7 +288,7 @@ function ShelfSection({
           <div className="flex items-center gap-1">
             <button
               type="button"
-              onClick={() => scrollByCards(-1)}
+              onClick={() => scrollByPage(-1)}
               aria-label="Anterior"
               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
             >
@@ -298,7 +296,7 @@ function ShelfSection({
             </button>
             <button
               type="button"
-              onClick={() => scrollByCards(1)}
+              onClick={() => scrollByPage(1)}
               aria-label="Siguiente"
               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-na-editorial/25 bg-white text-na-editorial transition hover:bg-na-editorial/5"
             >
@@ -317,7 +315,7 @@ function ShelfSection({
 
       <ul
         ref={scrollerRef}
-        className="-mx-4 mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 scroll-smooth sm:-mx-6 sm:gap-4 sm:px-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="mt-8 flex snap-x snap-mandatory gap-3 overflow-x-auto pb-1 scroll-smooth sm:gap-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         {items.map((entry) => (
           <li
@@ -326,7 +324,7 @@ function ShelfSection({
                 ? `book-${entry.book.id}`
                 : `regalo-${entry.item.id}`
             }
-            className="w-[42%] max-w-[11.5rem] shrink-0 snap-start sm:w-[30%] sm:max-w-[13rem] md:w-[22%] md:max-w-[14rem]"
+            className="w-[calc((100%-0.75rem)/2)] shrink-0 snap-start sm:w-[calc((100%-2rem)/3)] md:w-[calc((100%-3rem)/4)]"
           >
             <ShelfCard
               entry={entry}
