@@ -109,6 +109,8 @@ export type EditorialDondeContact = {
   whatsappNumber: string;
   whatsappCtaLabel: string;
   whatsappMessage: string;
+  floatWhatsappMessage: string;
+  floatWhatsappLabel: string;
 };
 
 export const EDITORIAL_DONDE_CONTACT: EditorialDondeContact = {
@@ -118,6 +120,9 @@ export const EDITORIAL_DONDE_CONTACT: EditorialDondeContact = {
   whatsappCtaLabel: "Escribir por WhatsApp",
   whatsappMessage:
     "Hola, me interesa visitar la Librería Editorial Logos en {sede}.",
+  floatWhatsappMessage:
+    "Hola, me interesa consultar disponibilidad de libros y productos de Editorial Logos.",
+  floatWhatsappLabel: "Consultar por WhatsApp",
 };
 
 function isGoogleMapsUrl(input: string): boolean {
@@ -200,6 +205,12 @@ export function mergeEditorialDondeContactFields(
       cms?.whatsappCtaLabel ?? EDITORIAL_DONDE_CONTACT.whatsappCtaLabel,
     whatsappMessage:
       cms?.whatsappMessage ?? EDITORIAL_DONDE_CONTACT.whatsappMessage,
+    floatWhatsappMessage:
+      cms?.floatWhatsappMessage?.trim() ||
+      EDITORIAL_DONDE_CONTACT.floatWhatsappMessage,
+    floatWhatsappLabel:
+      cms?.floatWhatsappLabel?.trim() ||
+      EDITORIAL_DONDE_CONTACT.floatWhatsappLabel,
   };
 }
 

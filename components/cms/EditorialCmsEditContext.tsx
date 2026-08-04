@@ -1070,35 +1070,61 @@ function EditorialEditPanel({
     return chrome("Página — encabezado", <SectionCopyFields value={state.donde.page ?? {}} onChange={(p) => edit.patchDondePage(p)} />);
   }
 
-  if (selectedId === "donde:contact") {
+  if (selectedId === "donde:contact" || selectedId === "whatsapp-float") {
     const contact = state.donde.contact ?? {};
     return chrome(
-      "Contacto de las sedes",
+      selectedId === "whatsapp-float"
+        ? "WhatsApp flotante"
+        : "Contacto de las sedes",
       <div className="space-y-4">
-        <EditField
-          label="Teléfono"
-          value={contact.phone ?? ""}
-          onChange={(v) => edit.patchDondeContact({ phone: v })}
-        />
-        <EditField
-          label="Correo"
-          value={contact.email ?? ""}
-          onChange={(v) => edit.patchDondeContact({ email: v })}
-        />
+        {selectedId === "donde:contact" ? (
+          <>
+            <EditField
+              label="Teléfono"
+              value={contact.phone ?? ""}
+              onChange={(v) => edit.patchDondeContact({ phone: v })}
+            />
+            <EditField
+              label="Correo"
+              value={contact.email ?? ""}
+              onChange={(v) => edit.patchDondeContact({ email: v })}
+            />
+          </>
+        ) : (
+          <p className="text-sm text-slate-600">
+            Botón verde de la esquina inferior. No se muestra dentro del
+            editor; los visitantes sí lo ven en la tienda.
+          </p>
+        )}
         <EditField
           label="Número de WhatsApp (solo dígitos, con código de país)"
           value={contact.whatsappNumber ?? ""}
           onChange={(v) => edit.patchDondeContact({ whatsappNumber: v })}
         />
+        {selectedId === "donde:contact" ? (
+          <>
+            <EditField
+              label="Texto del botón WhatsApp (sedes)"
+              value={contact.whatsappCtaLabel ?? ""}
+              onChange={(v) => edit.patchDondeContact({ whatsappCtaLabel: v })}
+            />
+            <EditField
+              label="Mensaje de WhatsApp de sedes (use {sede} para el nombre)"
+              value={contact.whatsappMessage ?? ""}
+              onChange={(v) => edit.patchDondeContact({ whatsappMessage: v })}
+              multiline
+            />
+          </>
+        ) : null}
         <EditField
-          label="Texto del botón WhatsApp"
-          value={contact.whatsappCtaLabel ?? ""}
-          onChange={(v) => edit.patchDondeContact({ whatsappCtaLabel: v })}
+          label="Texto del botón flotante"
+          value={contact.floatWhatsappLabel ?? ""}
+          onChange={(v) => edit.patchDondeContact({ floatWhatsappLabel: v })}
         />
         <EditField
-          label="Mensaje de WhatsApp (use {sede} para el nombre de la sede)"
-          value={contact.whatsappMessage ?? ""}
-          onChange={(v) => edit.patchDondeContact({ whatsappMessage: v })}
+          label="Mensaje del botón flotante"
+          value={contact.floatWhatsappMessage ?? ""}
+          onChange={(v) => edit.patchDondeContact({ floatWhatsappMessage: v })}
           multiline
         />
       </div>,

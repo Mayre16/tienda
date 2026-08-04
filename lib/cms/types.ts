@@ -86,6 +86,10 @@ export type CmsEditorialDondeContact = {
   whatsappCtaLabel?: string;
   /** Plantilla del mensaje; use `{sede}` para el nombre de la sede. */
   whatsappMessage?: string;
+  /** Mensaje del botón flotante de WhatsApp (esquina inferior). */
+  floatWhatsappMessage?: string;
+  /** Texto visible del botón flotante (desktop). */
+  floatWhatsappLabel?: string;
 };
 
 export type CmsEditorialStorePhoto = {
